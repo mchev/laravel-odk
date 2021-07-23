@@ -26,6 +26,8 @@ ODK_USER_EMAIL=your_email
 ODK_USER_PASSWORD=your_password
 ```
 
+Don't forget to run ```php artisan config:clear```
+
 ## Usage
 
 ```php
@@ -57,7 +59,7 @@ $users = $odk->users();
 // Searching users
 $users = $odk->users('Jane');
 
-// You can also use eloquent :boom:
+:boom: // You can also use eloquent
 $users = $odk->users()->sortBy('displayName');
 
 // Creating a new user.
