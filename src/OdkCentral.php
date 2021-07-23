@@ -19,15 +19,14 @@ class OdkCentral
 
         $this->endpoint = null;
 
-        $this->params = null;
+        $this->params = [];
     }
 
 
     /**
      * Get the list of users.
      *
-     * @param string $q
-     * @return PendingRequest
+     * @return $this
      */
     public function users($q = null)
     {
@@ -35,10 +34,10 @@ class OdkCentral
         $this->endpoint = '/users';
 
         $this->params = [
-            'q' => $q
+            'q' => $q,
         ];
 
-        return $this;
+        return $this->get();
 
     }
 
@@ -59,10 +58,7 @@ class OdkCentral
             'password' => $password,
         ];
 
-        $request = new OdkCentralRequest();
-        $response = $request->post($this->endpoint, $this->params);
-
-        return $response;
+        return $this->post();
 
     }
 
@@ -92,6 +88,51 @@ class OdkCentral
         $endpoint = '/projects';
         $request = new OdkCentralRequest;
         return $request->get($endpoint);
+
+    }
+
+    /**
+     * Adding query in parameters.
+     *
+     * @param string $q
+     * @return $this
+     */
+    public function search()
+    {
+
+        return $this;
+
+    }
+
+    /**
+     * Adding query in parameters.
+     *
+     * @param integer $actorId
+     * @return $this
+     */
+    public function find($actorId)
+    {
+
+        $this->params = [
+            'actorId' => $actorId,
+        ];
+
+        return $this->get();
+
+    }
+
+    /**
+     * Adding query in parameters.
+     *
+     * @param integer $actorId
+     * @return $this
+     */
+    public function current()
+    {
+
+        $this->endpoint  .= '/current';
+
+        return $this->get();
 
     }
 

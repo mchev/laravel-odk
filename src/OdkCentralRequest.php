@@ -3,6 +3,7 @@
 namespace Mchev\LaravelOdk;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\RequestException;
 
 class OdkCentralRequest
 {
@@ -29,13 +30,19 @@ class OdkCentralRequest
     {
 
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
-        ])->get($this->api_url . $endpoint, $params);
+                'Authorization' => 'Bearer ' . $this->token,
+            ])
+            ->get($this->api_url . $endpoint, $params)
+            ->throw(function ($response, $e) {
+                return $e;
+            })
+            ->object();
 
+        if (is_array($response)) {
+            $response = collect($response);
+        }
 
-        return collect($response->json())->map(function ($item) {
-                    return (object) $item;
-                });
+        return $response;
     }
 
 

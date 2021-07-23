@@ -52,10 +52,24 @@ class OdkController
 
 ```php
 // Get all users.
-OdkCentral::users()->get();
+$users = $odk->users();
 
-// Create a new user.
-OdkCentral::addUser();
+// You can also use eloquent :boom:
+$users = $odk->users()->sortBy('displayName');
+
+// Searching users
+$users = $odk->search()->users('Jane'); /* OR */ $odk->users('Jane');
+
+// Creating a new user.
+$newUser = $odk->addUser([
+  'email' => 'example@email.com',
+  'password' => 'password' // Optional
+]);
+
+// Getting User details
+$user = $odk->users()->find($id)->get();
+
+
 ```
 
 ### Projects
