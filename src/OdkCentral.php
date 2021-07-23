@@ -8,10 +8,18 @@ class OdkCentral
 
     private $api;
 
+    private $endpoint;
+
+    private $params;
+
 
     public function __construct()
     {
-        $this->api = new OdkCentralRequest;
+        $this->api = new OdkCentralRequest();
+
+        $this->endpoint = null;
+
+        $this->params = null;
     }
 
 
@@ -23,13 +31,14 @@ class OdkCentral
      */
     public function users($q = null)
     {
-        $endpoint = '/users';
 
-        $params = [
+        $this->endpoint = '/users';
+
+        $this->params = [
             'q' => $q
         ];
 
-        return $this->api->get($endpoint, $params);
+        return $this;
 
     }
 
@@ -42,14 +51,18 @@ class OdkCentral
      */
     public function createUser(string $email, string $password = null)
     {
-        $endpoint = '/users';
 
-        $params = [
+        $this->endpoint = '/users';
+
+        $this->params = [
             'email' => $email,
             'password' => $password,
         ];
 
-        return $this->api->post($endpoint, $params);
+        $request = new OdkCentralRequest();
+        $response = $request->post($this->endpoint, $this->params);
+
+        return $response;
 
     }
 
@@ -62,9 +75,9 @@ class OdkCentral
      */
     public function roles($q = null)
     {
-        $endpoint = '/roles';
+        $this->endpoint = '/roles';
 
-        return $this->api->get($endpoint);
+        return $this;
 
     }
 
@@ -83,22 +96,20 @@ class OdkCentral
     }
 
     /**
-     * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
+     * Create a new get request.
      *
-     * @param string $q
-     * @return PendingRequest
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @return collection
      */
-    public function forms($projectId)
+    public function get()
     {
-        $endpoint = '/projects/' . $projectId . '/forms';
 
-        $method = 'get';
+        $request = new OdkCentralRequest();
+        $response = $request->get($this->endpoint, $this->params);
 
-        $params = [
-            'projectId' => $projectId,
-        ];
+        return $response;
 
-        return new OdkCentralRequest($method, $endpoint, $params);
     }
 
 

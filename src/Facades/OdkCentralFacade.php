@@ -3,7 +3,6 @@
 
 namespace Mchev\LaravelOdk\Facades;
 
-use Mchev\LaravelOdk\OdkCentral;
 use Illuminate\Support\Facades\Facade;
 
 
@@ -16,6 +15,6 @@ class OdkCentralFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return OdkCentral::class;
+        return 'odk-central';
     }
 }

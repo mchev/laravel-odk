@@ -52,7 +52,7 @@
                 "Mchev\\LaravelOdk\\Providers\\OdkCentralServiceProvider"
             ],
             "aliases": {
-                "LaravelOdk": "Mchev\\LaravelOdk\\Facades\\OdkCentralFacade"
+                "OdkCentral": "Mchev\\LaravelOdk\\Facades\\OdkCentralFacade"
             }
         }
     }

@@ -19,11 +19,11 @@ class OdkCentralAuth
 
     public function __construct() {
 
-        $this->api_url = config('laravel-odk.api_url');
+        $this->api_url = config('odkcentral.api_url');
 
-        $this->email = config('laravel-odk.user_email');
+        $this->email = config('odkcentral.user_email');
 
-        $this->password = config('laravel-odk.user_password');
+        $this->password = config('odkcentral.user_password');
 
     }
 

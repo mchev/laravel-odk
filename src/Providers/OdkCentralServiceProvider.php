@@ -2,7 +2,7 @@
 
 namespace Mchev\LaravelOdk\Providers;
 
-use Mchev\LaravelOdk\LaravelOdk;
+use Mchev\LaravelOdk\OdkCentral;
 use Illuminate\Support\ServiceProvider;
 
 class OdkCentralServiceProvider extends ServiceProvider
@@ -21,8 +21,9 @@ class OdkCentralServiceProvider extends ServiceProvider
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
+
             $this->publishes([
-                __DIR__.'/../../config/config.php' => config_path('laravel-odk.php'),
+                __DIR__.'/../../config/config.php' => config_path('odkcentral.php'),
             ], 'config');
 
             // Publishing the views.
@@ -42,6 +43,7 @@ class OdkCentralServiceProvider extends ServiceProvider
 
             // Registering package commands.
             // $this->commands([]);
+            
         }
     }
 
@@ -51,11 +53,11 @@ class OdkCentralServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'laravel-odk');
+        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'odkcentral');
 
         // Register the main class to use with the facade
-        $this->app->singleton('laravel-odk', function () {
-            return new LaravelOdk;
+        $this->app->singleton('odk-central', function () {
+            return new OdkCentral;
         });
     }
 }

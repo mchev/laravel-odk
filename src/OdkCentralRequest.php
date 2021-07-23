@@ -13,7 +13,7 @@ class OdkCentralRequest
 
     public function __construct() {
 
-        $this->api_url = config('laravel-odk.api_url');
+        $this->api_url = config('odkcentral.api_url');
 
         $auth = new OdkCentralAuth();
 
@@ -31,6 +31,7 @@ class OdkCentralRequest
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->token,
         ])->get($this->api_url . $endpoint, $params);
+
 
         return collect($response->json())->map(function ($item) {
                     return (object) $item;
