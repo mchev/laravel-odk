@@ -50,7 +50,7 @@ class OdkController
 }
 
 ```
-### Users
+### [Users](https://odkcentral.docs.apiary.io/#reference/accounts-and-users/users)
 
 ```php
 // Get all users.
@@ -96,11 +96,25 @@ $user = $odk->user()->delete($userId);
 
 ```
 
-### Projects
+### [Projects](https://odkcentral.docs.apiary.io/#reference/project-management)
 
 ```php
 // Get a list of projects.
-OdkCentral::projects()->get();
+$projects = $odk->projects();
+```
+
+### [Forms](https://odkcentral.docs.apiary.io/#reference/forms)
+
+```php
+// Get a list of forms from a project.
+$forms = $odk->forms($projectId);
+```
+
+### [Submissions](https://odkcentral.docs.apiary.io/#reference/submissions)
+
+```php
+// Get a list of projects.
+$submissions = $odk->submissions();
 ```
 
 ### Testing
