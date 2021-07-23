@@ -16,7 +16,7 @@ composer require mchev/laravel-odk
 
 Then publish the config
 ```bash
-php artisan vendor:publish --provider="Mchev\LaravelOdk\LaravelOdkServiceProvider" --tag=config
+php artisan vendor:publish --provider="Mchev\LaravelOdk\Providers\OdkCentralServiceProvider" --tag=config
 ```
 
 Finally, add following lines to the .env file 
@@ -29,7 +29,24 @@ ODK_USER_PASSWORD=your_password
 ## Usage
 
 ```php
-use Mchev\LaravelOdk\Facades\ODK;
+use Mchev\LaravelOdk\OdkCentral;
+
+class OdkController
+{
+  
+  public function getUsers()
+  {
+  
+    $odk = new OdkCentral();
+    
+    $users = $odk->users()->get();
+    
+    return response()->json($users);
+    
+  }
+
+}
+
 ```
 ### Users
 
