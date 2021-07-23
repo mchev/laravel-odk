@@ -59,7 +59,7 @@ $users = $odk->users();
 // Searching users
 $users = $odk->users('Jane');
 
-:boom: // You can also use eloquent
+// You can also use eloquent 💥
 $users = $odk->users()->sortBy('displayName');
 
 // Creating a new user.
