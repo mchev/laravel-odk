@@ -43,22 +43,16 @@ class OdkCentral
 
 
     /**
-     * Create a new user.
+     * Get the list of users.
      *
-     * @param string $q
-     * @return PendingRequest
+     * @return $this
      */
-    public function createUser(string $email, string $password = null)
+    public function user()
     {
 
         $this->endpoint = '/users';
 
-        $this->params = [
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        return $this->post();
+        return $this;
 
     }
 
@@ -69,11 +63,11 @@ class OdkCentral
      * @param string $q
      * @return Response
      */
-    public function roles($q = null)
+    public function roles()
     {
         $this->endpoint = '/roles';
 
-        return $this;
+        return $this->get();
 
     }
 
@@ -83,11 +77,11 @@ class OdkCentral
      *
      * @return PendingRequest
      */
-    public function projects($q = null)
+    public function projects()
     {
-        $endpoint = '/projects';
-        $request = new OdkCentralRequest;
-        return $request->get($endpoint);
+        $this->endpoint = '/projects';
+
+        return $this->get();
 
     }
 
@@ -110,14 +104,52 @@ class OdkCentral
      * @param integer $actorId
      * @return $this
      */
-    public function find($actorId)
+    public function find(int $actorId)
     {
+
+        $this->endpoint .= "/" . $actorId;
 
         $this->params = [
             'actorId' => $actorId,
         ];
 
         return $this->get();
+
+    }
+
+    /**
+     * Create method is passing params to the request and then post it.
+     *
+     * @param array $params
+     * @return collection
+     */
+    public function create(array $params)
+    {
+
+        $this->params = $params;
+
+        return $this->post();
+
+    }
+
+    /**
+     * Create method is passing params to the request and then post it.
+     *
+     * @param array $params
+     * @return collection
+     */
+    public function update(array $params)
+    {
+
+        $this->endpoint .= "/" . $params['userId'];
+
+        $this->params = [
+            'actorId' => $params['userId'],
+            'displayName' => $params['displayName'],
+            'email' => $params['email'],
+        ];
+
+        return $this->patch();
 
     }
 
@@ -146,8 +178,40 @@ class OdkCentral
     public function get()
     {
 
-        $request = new OdkCentralRequest();
-        $response = $request->get($this->endpoint, $this->params);
+        $response = $this->api->get($this->endpoint, $this->params);
+
+        return $response;
+
+    }
+
+    /**
+     * Create a new post request.
+     *
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @return collection
+     */
+    public function post()
+    {
+
+        $response = $this->api->post($this->endpoint, $this->params);
+
+        return $response;
+
+    }
+
+
+    /**
+     * Create a new patch request.
+     *
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @return collection
+     */
+    public function patch()
+    {
+
+        $response = $this->api->patch($this->endpoint, $this->params);
 
         return $response;
 

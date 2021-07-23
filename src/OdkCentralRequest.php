@@ -10,8 +10,15 @@ class OdkCentralRequest
 
     private $api_url;
 
+    private $response;
+
     private string $token;
 
+
+    /**
+     * Init
+     *
+     */
     public function __construct() {
 
         $this->api_url = config('odkcentral.api_url');
@@ -29,7 +36,7 @@ class OdkCentralRequest
     public function get(string $endpoint, array $params = [])
     {
 
-        $response = Http::withHeaders([
+        $this->response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $this->token,
             ])
             ->get($this->api_url . $endpoint, $params)
@@ -38,11 +45,8 @@ class OdkCentralRequest
             })
             ->object();
 
-        if (is_array($response)) {
-            $response = collect($response);
-        }
+        return $this->response();
 
-        return $response;
     }
 
 
@@ -52,13 +56,45 @@ class OdkCentralRequest
     public function post(string $endpoint, array $params = [])
     {
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
-        ])->post($this->api_url . $endpoint, $params);
+        $this->response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->token,
+            ])
+            ->post($this->api_url . $endpoint, $params)
+            ->throw()
+            ->object();
 
-        return collect($response->json())->map(function ($item) {
-                    return (object) $item;
-                });
+        return $this->response();
+
+    }
+
+
+    /** PATCH METHOD
+     *
+     */
+    public function patch(string $endpoint, array $params = [])
+    {
+
+        $this->response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->token,
+            ])
+            ->patch($this->api_url . $endpoint, $params)
+            ->throw()
+            ->object();
+
+        return $this->response();
+
+    }
+
+    /** Return the formated response
+     *
+     */
+    public function response() {
+
+        if (is_array($this->response)) {
+            return collect($this->response);
+        }
+
+        return $this->response;
     }
 
 }
