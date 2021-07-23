@@ -60,7 +60,6 @@ $users = $odk->users('Jane');
 // You can also use eloquent :boom:
 $users = $odk->users()->sortBy('displayName');
 
-
 // Creating a new user.
 $newUser = $odk->user()->create([
   'email' => 'example@email.com',
@@ -68,30 +67,30 @@ $newUser = $odk->user()->create([
 ]);
 
 // Getting User details
-$user = $odk->user()->find($user_id);
+$user = $odk->user()->find($userId);
 
 // Getting authenticated User details
 $user = $odk->user()->current();
 
 // Modifying a User
 $user = $odk->user()->update([
-  'user_id' => 42, // integer
+  'userId' => 42, // integer
   'displayName' => 'New name', // string
   'email' => 'new.email.address@demo.org' // string
 ]);
 
 // Directly updating a user password
 $user = $odk->user()->updatePassword([
-  'user_id' => 42, // integer
+  'userId' => 42, // integer
   'old' => 'old.password', // string
   'new' => 'new.password' // string
 ]);
 
 // Initiating a password reset
-$user = $odk->user()->passwordReset($user_email);
+$user = $odk->user()->passwordReset($userEmail);
 
 // Deleting a User
-$user = $odk->user()->delete($user_id);
+$user = $odk->user()->delete($userId);
 
 ```
 
