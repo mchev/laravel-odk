@@ -49,10 +49,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mchev\\LaravelOdk\\Providers\\LaravelOdkServiceProvider"
+                "Mchev\\LaravelOdk\\Providers\\OdkCentralServiceProvider"
             ],
             "aliases": {
-                "LaravelOdk": "Mchev\\LaravelOdk\\Facades\\LaravelOdkFacade"
+                "LaravelOdk": "Mchev\\LaravelOdk\\Facades\\OdkCentralFacade"
             }
         }
     }

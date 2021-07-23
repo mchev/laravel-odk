@@ -5,7 +5,7 @@ namespace Mchev\LaravelOdk\Providers;
 use Mchev\LaravelOdk\LaravelOdk;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelOdkServiceProvider extends ServiceProvider
+class OdkCentralServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

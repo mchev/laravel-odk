@@ -4,7 +4,7 @@ namespace Mchev\LaravelOdk;
 
 use Illuminate\Support\Facades\Http;
 
-class LaravelOdkRequest
+class OdkCentralRequest
 {
 
     private $api_url;
@@ -15,7 +15,7 @@ class LaravelOdkRequest
 
         $this->api_url = config('laravel-odk.api_url');
 
-        $auth = new LaravelOdkAuth();
+        $auth = new OdkCentralAuth();
 
         $this->token = $auth->getAccessToken();
 

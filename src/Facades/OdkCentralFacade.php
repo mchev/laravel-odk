@@ -3,14 +3,11 @@
 
 namespace Mchev\LaravelOdk\Facades;
 
+use Mchev\LaravelOdk\OdkCentral;
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Mchev\LaravelOdk\Skeleton\SkeletonClass
- */
 
-
-class LaravelOdkFacade extends Facade
+class OdkCentralFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -19,6 +16,6 @@ class LaravelOdkFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-odk';
+        return OdkCentral::class;
     }
 }

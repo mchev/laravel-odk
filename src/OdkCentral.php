@@ -2,7 +2,7 @@
 
 namespace Mchev\LaravelOdk;
 
-class LaravelOdk
+class OdkCentral
 {
 
 
@@ -11,7 +11,7 @@ class LaravelOdk
 
     public function __construct()
     {
-        $this->api = new LaravelOdkRequest;
+        $this->api = new OdkCentralRequest;
     }
 
 
@@ -77,7 +77,7 @@ class LaravelOdk
     public function projects($q = null)
     {
         $endpoint = '/projects';
-        $request = new LaravelOdkRequest;
+        $request = new OdkCentralRequest;
         return $request->get($endpoint);
 
     }
@@ -98,7 +98,7 @@ class LaravelOdk
             'projectId' => $projectId,
         ];
 
-        return new LaravelOdkRequest($method, $endpoint, $params);
+        return new OdkCentralRequest($method, $endpoint, $params);
     }
 
 

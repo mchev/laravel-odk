@@ -5,7 +5,7 @@ namespace Mchev\LaravelOdk;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 
-class LaravelOdkAuth
+class OdkCentralAuth
 {
 
     private $api_url;
