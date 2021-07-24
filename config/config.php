@@ -8,32 +8,26 @@ return [
     | ODK Central API url
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the default url for the API calls
+    | Here you may specify the default url for the API calls.
+    | Example : https://private-anon-cecdde38ec-odkcentral.apiary-mock.com/v1
     |
     */
-    'api_url' => env('ODK_API_URL', 'https://private-anon-cecdde38ec-odkcentral.apiary-mock.com/v1'),
+    
+    'api_url' => env('ODK_API_URL'),
 
 
     /*
     |--------------------------------------------------------------------------
-    | ODK Central User Email
+    | ODK Central Authentification
     |--------------------------------------------------------------------------
     |
-    | The user email should be in the .env file
+    | An administrator user of your ODK Central app.
     |
     */
-    'user_email' => env('ODK_USER_EMAIL', 'test@test.fr'),
 
+    'user_email' => env('ODK_USER_EMAIL'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | ODK Central User Password
-    |--------------------------------------------------------------------------
-    |
-    | The user password should be in the .env file
-    |
-    */
-    'user_password' => env('ODK_USER_PASSWORD', '123456'),
+    'user_password' => env('ODK_USER_PASSWORD'),
 
 
 ];

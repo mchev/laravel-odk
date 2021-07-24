@@ -14,14 +14,49 @@ You can install the package via composer:
 composer require mchev/laravel-odk
 ```
 
-Then publish the config
+## Configuration
+
+Publish the config of the package.
 ```bash
 php artisan vendor:publish --provider="Mchev\LaravelOdk\Providers\OdkCentralServiceProvider" --tag=config
 ```
+The following config will be published to config/odkcentral.php.
+```php
+return [
 
-Finally, add following lines to the .env file 
+    /*
+    |--------------------------------------------------------------------------
+    | ODK Central API url
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default url for the API calls.
+    | Example : https://private-anon-cecdde38ec-odkcentral.apiary-mock.com/v1
+    |
+    */
+    
+    'api_url' => env('ODK_API_URL'),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ODK Central Authentification
+    |--------------------------------------------------------------------------
+    |
+    | An administrator user of your ODK Central app.
+    |
+    */
+
+    'user_email' => env('ODK_USER_EMAIL'),
+
+    'user_password' => env('ODK_USER_PASSWORD'),
+
+
+];
 ```
-ODK_API_URL="https://private-anon-cecdde38ec-odkcentral.apiary-mock.com/v1"
+
+Set the ```ODK_API_URL```, ```ODK_USER_EMAIL``` and ```ODK_USER_PASSWORD``` of your [ODK Central App](https://docs.getodk.org/getting-started/) in your ```.env``` file.
+```
+ODK_API_URL="https://your_host.com/v1"
 ODK_USER_EMAIL=your_email
 ODK_USER_PASSWORD=your_password
 ```
@@ -41,8 +76,10 @@ class OdkController
   
     $odk = new OdkCentral();
     
-    $users = $odk->users();
+    // Get all users
+    $users = $odk->users()->get;
     
+    // Json response
     return response()->json($users);
     
   }
