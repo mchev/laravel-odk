@@ -67,26 +67,21 @@ Don't forget to run ```php artisan config:clear```
 
 ```php
 use Mchev\LaravelOdk\OdkCentral;
-
-class OdkController
-{
-  
-  public function getUsers()
-  {
-  
-    $odk = new OdkCentral();
-    
-    // Get all users
-    $users = $odk->users()->get;
-    
-    // Json response
-    return response()->json($users);
-    
-  }
-
-}
-
 ```
+```php
+$odk = new OdkCentral;
+$users = $odk->users()->get();
+```
+
+Alternatively you can use the OdkCentral [Facade](https://laravel.com/docs/master/facades).
+
+```php
+use OdkCentral;
+```
+```php
+$users = OdkCentral::users()->get();
+```
+
 ### [Users](https://odkcentral.docs.apiary.io/#reference/accounts-and-users/users)
 
 ```php

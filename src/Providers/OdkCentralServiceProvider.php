@@ -54,10 +54,5 @@ class OdkCentralServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'odkcentral');
-
-        // Register the main class to use with the facade
-        $this->app->singleton('odk-central', function () {
-            return new OdkCentral;
-        });
     }
 }
