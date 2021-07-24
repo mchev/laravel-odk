@@ -54,45 +54,43 @@ class OdkController
 
 ```php
 // Get all users.
-$users = $odk->users();
+$users = $odk->users()->get();
 
 // Searching users
-$users = $odk->users('Jane');
+$users = $odk->users('Jane')->get();
 
 // You can also use eloquent 💥
-$users = $odk->users()->sortBy('displayName');
+$users = $odk->users()->get()->sortBy('displayName');
 
 // Creating a new user.
-$newUser = $odk->user()->create([
+$newUser = $odk->users()->create([
   'email' => 'example@email.com',
   'password' => 'password' // Optional (That email address will receive a message instructing the new user on how to claim their new account and set a password.)
 ]);
 
 // Getting User details
-$user = $odk->user()->find($userId);
+$user = $odk->users($userId)->get();
 
 // Getting authenticated User details
-$user = $odk->user()->current();
+$user = $odk->users()->current();
 
 // Modifying a User
-$user = $odk->user()->update([
-  'userId' => 42, // integer
+$user = $odk->users($userId)->update([
   'displayName' => 'New name', // string
   'email' => 'new.email.address@demo.org' // string
 ]);
 
 // Directly updating a user password
-$user = $odk->user()->updatePassword([
-  'userId' => 42, // integer
+$user = $odk->users($userId)->updatePassword([
   'old' => 'old.password', // string
   'new' => 'new.password' // string
 ]);
 
 // Initiating a password reset
-$user = $odk->user()->passwordReset($userEmail);
+$user = $odk->users()->passwordReset($userEmail);
 
 // Deleting a User
-$user = $odk->user()->delete($userId);
+$user = $odk->users($userId)->delete();
 
 ```
 

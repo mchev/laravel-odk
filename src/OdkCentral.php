@@ -31,26 +31,11 @@ class OdkCentral
     public function users($q = null)
     {
 
-        $this->endpoint = '/users';
+        $this->endpoint = (is_int($q)) ? '/users/' . $q : '/users';
 
         $this->params = [
             'q' => $q,
         ];
-
-        return $this->get();
-
-    }
-
-
-    /**
-     * Get the list of users.
-     *
-     * @return $this
-     */
-    public function user()
-    {
-
-        $this->endpoint = '/users';
 
         return $this;
 
@@ -86,38 +71,6 @@ class OdkCentral
     }
 
     /**
-     * Adding query in parameters.
-     *
-     * @param string $q
-     * @return $this
-     */
-    public function search()
-    {
-
-        return $this;
-
-    }
-
-    /**
-     * Adding query in parameters.
-     *
-     * @param integer $actorId
-     * @return $this
-     */
-    public function find(int $actorId)
-    {
-
-        $this->endpoint .= "/" . $actorId;
-
-        $this->params = [
-            'actorId' => $actorId,
-        ];
-
-        return $this->get();
-
-    }
-
-    /**
      * Create method is passing params to the request and then post it.
      *
      * @param array $params
@@ -141,15 +94,26 @@ class OdkCentral
     public function update(array $params)
     {
 
-        $this->endpoint .= "/" . $params['userId'];
-
-        $this->params = [
-            'actorId' => $params['userId'],
-            'displayName' => $params['displayName'],
-            'email' => $params['email'],
-        ];
+        $this->params = $params;
 
         return $this->patch();
+
+    }
+
+    /**
+     * Update the user password.
+     *
+     * @param array $params
+     * @return Object $user
+     */
+    public function updatePassword(array $params)
+    {
+
+        $this->endpoint  .= '/password';
+
+        $this->params = $params;
+
+        return $this->put();
 
     }
 
@@ -169,6 +133,36 @@ class OdkCentral
     }
 
     /**
+     * Assign a user role.
+     *
+     * @param integer $roleId
+     * @return $this
+     */
+    public function assignRole($roleId)
+    {
+
+        $this->endpoint  .= '/' . $roleId;
+
+        return $this->post();
+
+    }
+
+    /**
+     * Remove a user role.
+     *
+     * @param integer $roleId
+     * @return $this
+     */
+    public function removeRole($roleId)
+    {
+
+        $this->endpoint  .= '/' . $roleId;
+
+        return $this->delete();
+
+    }
+
+    /**
      * Create a new get request.
      *
      * @param string $this->endpoint
@@ -178,9 +172,7 @@ class OdkCentral
     public function get()
     {
 
-        $response = $this->api->get($this->endpoint, $this->params);
-
-        return $response;
+        return $this->api->get($this->endpoint, $this->params);
 
     }
 
@@ -194,9 +186,7 @@ class OdkCentral
     public function post()
     {
 
-        $response = $this->api->post($this->endpoint, $this->params);
-
-        return $response;
+        return $this->api->post($this->endpoint, $this->params);
 
     }
 
@@ -211,9 +201,35 @@ class OdkCentral
     public function patch()
     {
 
-        $response = $this->api->patch($this->endpoint, $this->params);
+        return $this->api->patch($this->endpoint, $this->params);
 
-        return $response;
+    }
+
+    /**
+     * Create a new patch request.
+     *
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @return collection
+     */
+    public function put()
+    {
+
+        return $this->api->put($this->endpoint, $this->params);
+
+    }
+
+    /**
+     * Create a new delete request.
+     *
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @return collection
+     */
+    public function delete()
+    {
+
+        return $this->api->delete($this->endpoint, $this->params);
 
     }
 

@@ -85,6 +85,40 @@ class OdkCentralRequest
 
     }
 
+    /** PUT METHOD
+     *
+     */
+    public function put(string $endpoint, array $params = [])
+    {
+
+        $this->response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->token,
+            ])
+            ->put($this->api_url . $endpoint, $params)
+            ->throw()
+            ->object();
+
+        return $this->response();
+
+    }
+
+    /** DELETE METHOD
+     *
+     */
+    public function delete(string $endpoint, array $params = [])
+    {
+
+        $this->response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->token,
+            ])
+            ->delete($this->api_url . $endpoint, $params)
+            ->throw()
+            ->object();
+
+        return $this->response();
+
+    }
+
     /** Return the formated response
      *
      */
