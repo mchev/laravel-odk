@@ -107,7 +107,7 @@ $newAppUser = $odk->projects($projectId)->appUsers()->create([
 ]);
 
 // Deleting a App User
-$user = $odk->projects($projectId)->appUsers($appUserId)->delete();
+$appUser = $odk->projects($projectId)->appUsers($appUserId)->delete();
 
 ```
 
@@ -131,7 +131,7 @@ $project = $odk->projects($projectId)->update([
   'archived' => false // boolean | optional
 ]);
 
-// Updating Project Details
+// Deep Updating Project and Form Details
 $project = $odk->projects($projectId)->deepUpdate([
   'name' => 'New name', // string | required
   'archived' => false, // boolean | optional
@@ -143,16 +143,8 @@ $project = $odk->projects($projectId)->deepUpdate([
         {
           "roleId": 2,
           "actorId": 14
-        },
-        {
-          "roleId": 2,
-          "actorId": 21
         }
       ]
-    },
-    {
-      "xmlFormId": "test",
-      "state": "closed"
     }
   ], // array | infos : https://odkcentral.docs.apiary.io/#reference/project-management/projects/deep-updating-project-and-form-details
 ]);
