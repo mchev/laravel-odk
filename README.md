@@ -94,11 +94,78 @@ $user = $odk->users($userId)->delete();
 
 ```
 
+
+### [App Users](https://odkcentral.docs.apiary.io/#reference/accounts-and-users/app-users)
+
+```php
+// Listing all App Users.
+$appUsers = $odk->projects($projectId)->appUsers()->get();
+
+// Creating a new App User.
+$newAppUser = $odk->projects($projectId)->appUsers()->create([
+  'displayName' => 'Jane Doe'
+]);
+
+// Deleting a App User
+$user = $odk->projects($projectId)->appUsers($appUserId)->delete();
+
+```
+
 ### [Projects](https://odkcentral.docs.apiary.io/#reference/project-management)
 
 ```php
 // Get a list of projects.
-$projects = $odk->projects();
+$projects = $odk->projects()->get();
+
+// Creating a Project.
+$project = $odk->projects()->create([
+  'name' => 'My new project'
+]);
+
+// Getting Project details
+$project = $odk->projects($projectId)->get();
+
+// Updating Project Details
+$project = $odk->projects($projectId)->update([
+  'name' => 'New name', // string | required
+  'archived' => false // boolean | optional
+]);
+
+// Updating Project Details
+$project = $odk->projects($projectId)->deepUpdate([
+  'name' => 'New name', // string | required
+  'archived' => false, // boolean | optional
+  'forms' => [
+    {
+      "xmlFormId": "simple",
+      "state": "open",
+      "assignments": [
+        {
+          "roleId": 2,
+          "actorId": 14
+        },
+        {
+          "roleId": 2,
+          "actorId": 21
+        }
+      ]
+    },
+    {
+      "xmlFormId": "test",
+      "state": "closed"
+    }
+  ], // array | infos : https://odkcentral.docs.apiary.io/#reference/project-management/projects/deep-updating-project-and-form-details
+]);
+
+// Enabling Project Managed Encryption
+$project = $odk->projects($projectId)->encrypt([
+  'passphrase' => 'Super duper secret', // string | required
+  'hint' => 'My reminder' // string | optional
+]);
+
+// Deleting a Project
+$project = $odk->projects($projectId)->delete();
+
 ```
 
 ### [Forms](https://odkcentral.docs.apiary.io/#reference/forms)

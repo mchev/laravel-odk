@@ -17,7 +17,7 @@ class OdkCentral
     {
         $this->api = new OdkCentralRequest();
 
-        $this->endpoint = null;
+        $this->endpoint = '';
 
         $this->params = [];
     }
@@ -26,12 +26,13 @@ class OdkCentral
     /**
      * Get the list of users.
      *
+     * @param string|int $q
      * @return $this
      */
     public function users($q = null)
     {
 
-        $this->endpoint = (is_int($q)) ? '/users/' . $q : '/users';
+        $this->endpoint .= (is_int($q)) ? '/users/' . $q : '/users';
 
         $this->params = [
             'q' => $q,
@@ -41,32 +42,60 @@ class OdkCentral
 
     }
 
+    /**
+     * Get the list of App Users.
+     *
+     * @param string|int $q
+     * @return $this
+     */
+    public function appUsers($q = null)
+    {
+
+        $this->endpoint .= (is_int($q)) ? '/app-users/' . $q : '/app-users';
+
+        $this->params = [
+            'q' => $q,
+        ];
+
+        return $this;
+
+    }
 
     /**
      * Get the list of roles.
      *
-     * @param string $q
-     * @return Response
+     * @param string|int $q
+     * @return $this
      */
-    public function roles()
+    public function roles($q = null)
     {
-        $this->endpoint = '/roles';
 
-        return $this->get();
+        $this->endpoint .= (is_int($q)) ? '/roles/' . $q : '/roles';
+
+        $this->params = [
+            'q' => $q,
+        ];
+
+        return $this;
 
     }
-
 
     /**
      * Get the list of projects.
      *
-     * @return PendingRequest
+     * @param string|int $q
+     * @return $this
      */
-    public function projects()
+    public function projects($q = null)
     {
-        $this->endpoint = '/projects';
 
-        return $this->get();
+        $this->endpoint .= (is_int($q)) ? '/projects/' . $q : '/projects';
+
+        $this->params = [
+            'q' => $q,
+        ];
+
+        return $this;
 
     }
 
@@ -86,7 +115,7 @@ class OdkCentral
     }
 
     /**
-     * Create method is passing params to the request and then post it.
+     * Updating the current item based on endpoint.
      *
      * @param array $params
      * @return collection
@@ -101,7 +130,22 @@ class OdkCentral
     }
 
     /**
-     * Update the user password.
+     * Deep Updating.
+     *
+     * @param array $params
+     * @return collection
+     */
+    public function deepUpdate(array $params)
+    {
+
+        $this->params = $params;
+
+        return $this->put();
+
+    }
+
+    /**
+     * Updating the user password.
      *
      * @param array $params
      * @return Object $user
@@ -118,7 +162,26 @@ class OdkCentral
     }
 
     /**
-     * Adding query in parameters.
+     * Initiating a password reset.
+     *
+     * @param string $email
+     * @return Object $user
+     */
+    public function passwordReset($email)
+    {
+
+        $this->endpoint .= '/reset/initiate?invalidate=true';
+
+        $this->params = [
+            'email' => $email
+        ];
+
+        return $this->post();
+
+    }
+
+    /**
+     * Getting authentificated User details.
      *
      * @param integer $actorId
      * @return $this
@@ -159,6 +222,23 @@ class OdkCentral
         $this->endpoint  .= '/' . $roleId;
 
         return $this->delete();
+
+    }
+
+    /**
+     * Enabling Project Managed Encryption
+     *
+     * @param array $params
+     * @return $this
+     */
+    public function encrypt($params)
+    {
+
+        $this->endpoint  .= '/key';
+
+        $this->params = $params;
+
+        return $this->post();
 
     }
 
