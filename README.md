@@ -95,7 +95,7 @@ $users = $odk->users('Jane')->get();
 $users = $odk->users()->get()->sortBy('displayName');
 
 // Creating a new user.
-$newUser = $odk->users()->create([
+$user = $odk->users()->create([
   'email' => 'example@email.com',
   'password' => 'password' // Optional (That email address will receive a message instructing the new user on how to claim their new account and set a password.)
 ]);
@@ -134,7 +134,7 @@ $user = $odk->users($userId)->delete();
 $appUsers = $odk->projects($projectId)->appUsers()->get();
 
 // Creating a new App User.
-$newAppUser = $odk->projects($projectId)->appUsers()->create([
+$appUser = $odk->projects($projectId)->appUsers()->create([
   'displayName' => 'Jane Doe'
 ]);
 

@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  bootstrap="vendor/autoload.php"
-  backupGlobals="false"
-  backupStaticAttributes="false"
-  colors="true"
-  verbose="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true"
-  processIsolation="false"
-  stopOnFailure="false"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
->
-  <coverage>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-  </coverage>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
   <testsuites>
-    <testsuite name="Unit">
-      <directory suffix="Test.php">./tests/Unit</directory>
-    </testsuite>
-    <testsuite name="Feature">
-      <directory suffix="Test.php">./tests/Feature</directory>
-    </testsuite>
+      <testsuite name="Unit">
+          <directory suffix="Test.php">./tests/Unit</directory>
+      </testsuite>
   </testsuites>
+  <coverage processUncoveredFiles="true">
+      <include>
+          <directory suffix=".php">./src</directory>
+      </include>
+  </coverage>
   <php>
+    <env name="APP_ENV" value="testing"/>
+    <env name="BCRYPT_ROUNDS" value="4"/>
+    <env name="CACHE_DRIVER" value="array"/>
+    <env name="MAIL_DRIVER" value="array"/>
+    <env name="QUEUE_CONNECTION" value="sync"/>
+    <env name="SESSION_DRIVER" value="array"/>
     <env name="ODK_API_URL" value="https://private-anon-4e63ff06a2-odkcentral.apiary-mock.com/v1"/>
     <env name="ODK_USER_EMAIL" value="my.email.address@opendatakit.org"/>
     <env name="ODK_USER_PASSWORD" value="my.super.secure.password"/>
