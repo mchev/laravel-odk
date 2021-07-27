@@ -32,33 +32,64 @@ class OdkCentralRequest
     /**
      * GET METHOD
      *
+     * @param string $endpoint
+     * @param array $params
      */
-    public function get(string $endpoint, array $params = [])
+    public function get(string $endpoint, array $params = [], array $headers = [])
     {
 
-        $this->response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->token,
-            ])
-            ->get($this->api_url . $endpoint, $params)
-            ->throw(function ($response, $e) {
-                return $e;
-            })
-            ->object();
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->withHeaders($headers)
+                ->get($this->api_url . $endpoint, $params)
+                ->object();
+
+        } catch (Exception $exception) {
+
+            return $exception;
+
+        }
 
         return $this->response();
 
     }
 
+    /**
+     * GET RAW METHOD
+     *
+     * @param string $endpoint
+     * @param array $params
+     */
+    public function getBody(string $endpoint, array $params = [], array $headers = [])
+    {
+
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->withHeaders($headers)
+                ->get($this->api_url . $endpoint, $params)
+                ->body();
+
+        } catch (Exception $exception) {
+
+            return $exception;
+
+        }
+
+        return (string) $this->response();
+
+    }
 
     /** POST METHOD
      *
+     * @param string $endpoint
+     * @param array $params
      */
     public function post(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->token,
-            ])
+        $this->response = Http::withToken($this->token)
             ->post($this->api_url . $endpoint, $params)
             ->throw()
             ->object();
@@ -70,13 +101,13 @@ class OdkCentralRequest
 
     /** PATCH METHOD
      *
+     * @param string $endpoint
+     * @param array $params
      */
     public function patch(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->token,
-            ])
+        $this->response = Http::withToken($this->token)
             ->patch($this->api_url . $endpoint, $params)
             ->throw()
             ->object();
@@ -87,13 +118,13 @@ class OdkCentralRequest
 
     /** PUT METHOD
      *
+     * @param string $endpoint
+     * @param array $params
      */
     public function put(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->token,
-            ])
+        $this->response = Http::withToken($this->token)
             ->put($this->api_url . $endpoint, $params)
             ->throw()
             ->object();
@@ -104,13 +135,13 @@ class OdkCentralRequest
 
     /** DELETE METHOD
      *
+     * @param string $endpoint
+     * @param array $params
      */
     public function delete(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->token,
-            ])
+        $this->response = Http::withToken($this->token)
             ->delete($this->api_url . $endpoint, $params)
             ->throw()
             ->object();

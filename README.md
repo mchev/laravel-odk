@@ -195,15 +195,26 @@ $project = $odk->projects($projectId)->delete();
 ### [Forms](https://odkcentral.docs.apiary.io/#reference/forms)
 
 ```php
-// Get a list of forms from a project.
-$forms = $odk->forms($projectId);
+// List all forms of a project.
+$forms = $odk->projects($projectId)->forms()->get();
+
+// Creating new form (before sending a new form be sure to validate it https://docs.getodk.org/validate/)
+$forms = $odk->projects($projectId)->forms()->create([
+
+]);
+
+// Getting form details
+$form = $odk->projects($projectId)->forms($xmlFormId)->get();
+
+
 ```
 
 ### [Submissions](https://odkcentral.docs.apiary.io/#reference/submissions)
 
 ```php
-// Get a list of projects.
-$submissions = $odk->submissions();
+// Listing all submissions on a form
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions()->get();
+
 ```
 
 ### Testing

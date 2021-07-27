@@ -12,14 +12,18 @@ class OdkCentral
 
     private $params;
 
+    private $headers;
+
 
     public function __construct()
     {
-        $this->api = new OdkCentralRequest();
+        $this->api = new OdkCentralRequest;
 
         $this->endpoint = '';
 
         $this->params = [];
+
+        $this->headers = [];
     }
 
 
@@ -51,6 +55,10 @@ class OdkCentral
     public function appUsers($q = null)
     {
 
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
         $this->endpoint .= (is_int($q)) ? '/app-users/' . $q : '/app-users';
 
         $this->params = [
@@ -81,6 +89,62 @@ class OdkCentral
     }
 
     /**
+     * Set the assignements endpoint.
+     *
+     * @param int $id
+     * @return $this
+     */
+    public function assignements($id = null)
+    {
+
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
+        $this->endpoint .= (is_int($id)) ? '/assignements/' . $id : '/assignements';
+
+        $this->params = [
+            'id' => $id,
+        ];
+
+        return $this;
+
+    }
+
+    /**
+     * Set the submissions endpoint.
+     *
+     * @param string|int $id
+     * @return $this
+     */
+    public function submissions($id = null)
+    {
+
+        $this->endpoint .= (!is_null($id)) ? '/submissions/' . $id : '/submissions';
+
+        $this->params = [
+            'id' => $id,
+        ];
+
+        return $this;
+
+    }
+
+    /**
+     * Set the submissions xml endpoint.
+     *
+     * @return $this
+     */
+    public function xml()
+    {
+
+        $this->endpoint .= '.xml';
+
+        return $this->getBody();
+
+    }
+
+    /**
      * Get the list of projects.
      *
      * @param string|int $q
@@ -89,10 +153,37 @@ class OdkCentral
     public function projects($q = null)
     {
 
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
         $this->endpoint .= (is_int($q)) ? '/projects/' . $q : '/projects';
 
         $this->params = [
             'q' => $q,
+        ];
+
+        return $this;
+
+    }
+
+    /**
+     * Get the list of projects.
+     *
+     * @param string|int $id
+     * @return $this
+     */
+    public function forms($id = null)
+    {
+
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
+        $this->endpoint .= (!is_null($id)) ? '/forms/' . $id : '/forms';
+
+        $this->params = [
+            'xmlFormId' => $id,
         ];
 
         return $this;
@@ -109,6 +200,25 @@ class OdkCentral
     {
 
         $this->params = $params;
+
+        return $this->post();
+
+    }
+
+    /**
+     * Create method is passing params to the request and then post it.
+     *
+     * @param $params
+     * @return collection
+     */
+    public function import($form, $ignoreWarnings = false, $publish = false)
+    {
+
+        $this->headers = [
+            'Content-Type' => 'application/xml',
+        ];
+
+        $this->params = $form;
 
         return $this->post();
 
@@ -247,12 +357,28 @@ class OdkCentral
      *
      * @param string $this->endpoint
      * @param array $this->params
+     * @param array $this->headers
      * @return collection
      */
     public function get()
     {
 
-        return $this->api->get($this->endpoint, $this->params);
+        return $this->api->get($this->endpoint, $this->params, $this->headers);
+
+    }
+
+    /**
+     * Create a new get raw request.
+     *
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @param array $this->headers
+     * @return collection
+     */
+    public function getBody()
+    {
+
+        return $this->api->getBody($this->endpoint, $this->params, $this->headers);
 
     }
 
