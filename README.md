@@ -78,9 +78,6 @@ $users = $odk->users()->get();
 Alternatively you can use the OdkCentral [Facade](https://laravel.com/docs/master/facades).
 
 ```php
-use OdkCentral;
-```
-```php
 $users = OdkCentral::users()->get();
 ```
 
