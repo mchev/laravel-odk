@@ -188,10 +188,9 @@ $project = OdkCentral::projects($projectId)->delete();
 $forms = OdkCentral::projects($projectId)->forms()->get();
 
 // Creating new form (sending XForms XML or XLSForm file)
-$forms = OdkCentral::projects($projectId)->forms()->create([
-  'ignoreWarning' =>false, // Optional
+$form = OdkCentral::projects($projectId)->forms()->create([
   'publish' => false // Optional
-], $_FILE);
+], $request->file('your_input_file'));
 
 // Getting form details
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->get();

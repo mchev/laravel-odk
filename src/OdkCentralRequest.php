@@ -86,18 +86,37 @@ class OdkCentralRequest
      * @param string $endpoint
      * @param array $params
      */
-    public function post(string $endpoint, array $params = [])
+    public function post(string $endpoint, array $params = [], $file = null)
     {
 
-        try {
+        if(!is_null($file)) {
 
-            $this->response = Http::withToken($this->token)
-                ->post($this->api_url . $endpoint, $params)
-                ->object();
+            try {
 
-        } catch (RequestException $exception) {
+                $this->response = Http::withToken($this->token)
+                    ->attach('attachment', $file->get(), $file->getClientOriginalName())
+                    ->post($this->api_url . $endpoint, $params)
+                    ->object();
 
-            return $exception;
+            } catch (RequestException $exception) {
+
+                return $exception;
+
+            }
+
+        } else {
+
+            try {
+
+                $this->response = Http::withToken($this->token)
+                    ->post($this->api_url . $endpoint, $params)
+                    ->object();
+
+            } catch (RequestException $exception) {
+
+                return $exception;
+
+            }
 
         }
 

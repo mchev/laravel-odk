@@ -14,6 +14,8 @@ class OdkCentral
 
     private $headers;
 
+    private $file;
+
 
     public function __construct()
     {
@@ -24,6 +26,9 @@ class OdkCentral
         $this->params = [];
 
         $this->headers = [];
+
+        $this->file = null;
+
     }
 
 
@@ -233,15 +238,20 @@ class OdkCentral
     public function create(array $params, $file = null)
     {
 
+        $this->params = $params;
+
         if(!is_null($file)) {
 
+            $this->endpoint .= '?ignoreWarnings=true&formId=testtest';
+
             $this->headers = [
-                'Content-Type' => mime_content_type($file['input_name']['tmp_name']),
+                'Content-Type' => $file->getMimeType(),
+                'X-XlsForm-FormId-Fallback' => $file->getClientOriginalName(),
             ];
 
-        }
+            $this->file = $file;
 
-        $this->params = $params;
+        }
 
         return $this->post();
 
@@ -496,7 +506,7 @@ class OdkCentral
     public function post()
     {
 
-        return $this->api->post($this->endpoint, $this->params);
+        return $this->api->post($this->endpoint, $this->params, $this->file);
 
     }
 
