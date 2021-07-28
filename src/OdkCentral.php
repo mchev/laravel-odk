@@ -182,6 +182,46 @@ class OdkCentral
     }
 
     /**
+     * Versions endpoint.
+     * TODO : documentation
+     *
+     * @param string|int $id
+     * @return $this
+     */
+    public function versions($id = null)
+    {
+
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
+        $this->endpoint .= (!is_null($id)) ? '/versions/' . $id : '/versions';
+
+        return $this;
+
+    }
+
+    /**
+     * Assignments endpoint.
+     * TODO : documentation
+     *
+     * @param string|int $id
+     * @return $this
+     */
+    public function assignments($id = null)
+    {
+
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
+        $this->endpoint .= (!is_null($id)) ? '/assignments/' . $id : '/assignments';
+
+        return $this;
+
+    }
+
+    /**
      * Fields endpoint.
      *
      * @param boolean $odata
@@ -467,6 +507,26 @@ class OdkCentral
     }
 
     /**
+     * Set the odata Data document endpoint.
+     * TODO : documentation
+     *
+     * @return $this
+     */
+    public function data($table)
+    {
+
+        $this->headers = [
+            'Content-Type' => 'application/json',
+        ];
+
+        $this->endpoint .= '.svc/' . $table;
+
+        return $this;
+
+    }
+
+
+    /**
      * Create a new get request.
      *
      * @param string $this->endpoint
@@ -474,8 +534,10 @@ class OdkCentral
      * @param array $this->headers
      * @return collection
      */
-    public function get()
+    public function get($endpoint = '')
     {
+
+        $this->endpoint .= $endpoint;
 
         return $this->api->get($this->endpoint, $this->params, $this->headers);
 
