@@ -154,7 +154,7 @@ class OdkCentral
     }
 
     /**
-     * Get the list of projects.
+     * Forms endpoint.
      *
      * @param string|int $id
      * @return $this
@@ -177,13 +177,69 @@ class OdkCentral
     }
 
     /**
+     * Fields endpoint.
+     *
+     * @param boolean $odata
+     * @return $this
+     */
+    public function fields($odata = false)
+    {
+
+        $this->endpoint .= '/fields';
+
+        $this->params = [
+            'odata' => $odata,
+        ];
+
+        return $this;
+
+    }
+
+    /**
+     * Attachments endpoint.
+     *
+     * @return $this
+     */
+    public function attachments()
+    {
+
+        $this->endpoint .= '/attachments';
+
+        return $this;
+
+    }
+
+    /**
+     * Attachments endpoint.
+     *
+     * @param string $filename
+     * @return $this
+     */
+    public function downloadAttachment(string $filename)
+    {
+
+        $this->endpoint .= '/attachments/' . $filename;
+
+        return $this->download();
+
+    }
+
+    /**
      * Create method is passing params to the request and then post it.
      *
      * @param array $params
      * @return collection
      */
-    public function create(array $params)
+    public function create(array $params, $file = null)
     {
+
+        if(!is_null($file)) {
+
+            $this->headers = [
+                'Content-Type' => mime_content_type($file['input_name']['tmp_name']),
+            ];
+
+        }
 
         $this->params = $params;
 
@@ -348,7 +404,35 @@ class OdkCentral
 
         $this->endpoint .= '.xml';
 
-        return $this->getBody();
+        return $this->download();
+
+    }
+
+    /**
+     * Set the submissions xls endpoint.
+     *
+     * @return $this
+     */
+    public function xls()
+    {
+
+        $this->endpoint .= '.xls';
+
+        return $this->download();
+
+    }
+
+    /**
+     * Set the submissions xlsx endpoint.
+     *
+     * @return $this
+     */
+    public function xlsx()
+    {
+
+        $this->endpoint .= '.xlsx';
+
+        return $this->download();
 
     }
 
@@ -456,6 +540,20 @@ class OdkCentral
     {
 
         return $this->api->delete($this->endpoint, $this->params);
+
+    }
+
+    /**
+     * Create a new download request.
+     *
+     * @param string $this->endpoint
+     * @param array $this->params
+     * @return collection
+     */
+    public function download()
+    {
+
+        return $this->api->download($this->endpoint, $this->params);
 
     }
 

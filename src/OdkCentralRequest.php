@@ -45,7 +45,7 @@ class OdkCentralRequest
                 ->get($this->api_url . $endpoint, $params)
                 ->object();
 
-        } catch (Exception $exception) {
+        } catch (RequestException $exception) {
 
             return $exception;
 
@@ -71,7 +71,7 @@ class OdkCentralRequest
                 ->get($this->api_url . $endpoint, $params)
                 ->body();
 
-        } catch (Exception $exception) {
+        } catch (RequestException $exception) {
 
             return $exception;
 
@@ -89,10 +89,17 @@ class OdkCentralRequest
     public function post(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withToken($this->token)
-            ->post($this->api_url . $endpoint, $params)
-            ->throw()
-            ->object();
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->post($this->api_url . $endpoint, $params)
+                ->object();
+
+        } catch (RequestException $exception) {
+
+            return $exception;
+
+        }
 
         return $this->response();
 
@@ -107,10 +114,17 @@ class OdkCentralRequest
     public function patch(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withToken($this->token)
-            ->patch($this->api_url . $endpoint, $params)
-            ->throw()
-            ->object();
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->patch($this->api_url . $endpoint, $params)
+                ->object();
+
+        } catch (RequestException $exception) {
+
+            return $exception;
+
+        }
 
         return $this->response();
 
@@ -124,10 +138,17 @@ class OdkCentralRequest
     public function put(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withToken($this->token)
-            ->put($this->api_url . $endpoint, $params)
-            ->throw()
-            ->object();
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->put($this->api_url . $endpoint, $params)
+                ->object();
+
+        } catch (RequestException $exception) {
+
+            return $exception;
+
+        }
 
         return $this->response();
 
@@ -141,12 +162,42 @@ class OdkCentralRequest
     public function delete(string $endpoint, array $params = [])
     {
 
-        $this->response = Http::withToken($this->token)
-            ->delete($this->api_url . $endpoint, $params)
-            ->throw()
-            ->object();
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->delete($this->api_url . $endpoint, $params)
+                ->object();
+
+        } catch (RequestException $exception) {
+
+            return $exception;
+
+        }
 
         return $this->response();
+
+    }
+
+    /** DOWNLOAD METHOD
+     *
+     * @param string $endpoint
+     * @param array $params
+     */
+    public function download(string $endpoint, array $params = [])
+    {
+
+        try {
+
+            $this->response = Http::withToken($this->token)
+                ->get($this->api_url . $endpoint, $params);
+
+        } catch (RequestException $exception) {
+
+            return $exception;
+
+        }
+
+        return \Response::make($this->response->body(), $this->response->status(), $this->response->headers());
 
     }
 

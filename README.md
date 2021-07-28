@@ -187,15 +187,34 @@ $project = OdkCentral::projects($projectId)->delete();
 // List all forms of a project.
 $forms = OdkCentral::projects($projectId)->forms()->get();
 
-// Creating new form (before sending a new form be sure to validate it https://docs.getodk.org/validate/)
+// Creating new form (sending XForms XML or XLSForm file)
 $forms = OdkCentral::projects($projectId)->forms()->create([
-
-]);
+  'ignoreWarning' =>false, // Optional
+  'publish' => false // Optional
+], $_FILE);
 
 // Getting form details
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->get();
 
+// Listing form attachments
+$form = OdkCentral::projects($projectId)->forms($xmlFormId)->attachments()->get();
 
+// Downloading a form attachment
+return OdkCentral::projects($projectId)->forms($xmlFormId)->downloadAttachment($filename);
+
+// Getting form shema fields
+$form = OdkCentral::projects($projectId)->forms($xmlFormId)->fields()->get();
+
+// Modifying a form
+$form = OdkCentral::projects($projectId)->forms($xmlFormId)->update([
+  'state' => 'open'
+]);
+
+// Deleting a form
+$form = OdkCentral::projects($projectId)->forms($xmlFormId)->delete();
+
+// Download form file (xml, xls, xlsx)
+return OdkCentral::projects($projectId)->forms($xmlFormId)->xlsx(); // xml(), xls(), xlsx()
 ```
 
 ### [Submissions](https://odkcentral.docs.apiary.io/#reference/submissions)
@@ -214,7 +233,6 @@ $submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions(
 
 // Retrieving Submission XML
 $submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
-
 
 ```
 
