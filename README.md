@@ -2,7 +2,7 @@
 
 :warning: :warning: :warning: WORK IN PROGRESS :warning: :warning: :warning:
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
+[![Latest Version on Packagist](https://img.shields.io/packagist/p/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
 [![Total Downloads](https://img.shields.io/packagist/dt/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
 ![GitHub Actions](https://github.com/mchev/laravel-odk/actions/workflows/main.yml/badge.svg)
 
@@ -213,6 +213,18 @@ $form = $odk->projects($projectId)->forms($xmlFormId)->get();
 ```php
 // Listing all submissions on a form
 $submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions()->get();
+
+// Getting Submission metadata
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->get();
+
+// Updating Submission metadata
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->update([
+  'reviewState' => 'approved' // null, edited, hasIssues, rejected, approved | enum
+]);
+
+// Retrieving Submission XML
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
+
 
 ```
 
