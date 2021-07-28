@@ -68,16 +68,6 @@ Don't forget to run ```php artisan config:clear```
 ## Usage
 
 ```php
-use Mchev\LaravelOdk\OdkCentral;
-```
-```php
-$odk = new OdkCentral;
-$users = $odk->users()->get();
-```
-
-Alternatively you can use the OdkCentral [Facade](https://laravel.com/docs/master/facades).
-
-```php
 $users = OdkCentral::users()->get();
 ```
 
@@ -85,43 +75,43 @@ $users = OdkCentral::users()->get();
 
 ```php
 // Get all users.
-$users = $odk->users()->get();
+$users = OdkCentral::users()->get();
 
 // Searching users
-$users = $odk->users('Jane')->get();
+$users = OdkCentral::users('Jane')->get();
 
 // You can also use eloquent 💥
-$users = $odk->users()->get()->sortBy('displayName');
+$users = OdkCentral::users()->get()->sortBy('displayName');
 
 // Creating a new user.
-$user = $odk->users()->create([
+$user = OdkCentral::users()->create([
   'email' => 'example@email.com',
   'password' => 'password' // Optional (That email address will receive a message instructing the new user on how to claim their new account and set a password.)
 ]);
 
 // Getting User details
-$user = $odk->users($userId)->get();
+$user = OdkCentral::users($userId)->get();
 
 // Getting authenticated User details
-$user = $odk->users()->current();
+$user = OdkCentral::users()->current();
 
 // Modifying a User
-$user = $odk->users($userId)->update([
+$user = OdkCentral::users($userId)->update([
   'displayName' => 'New name', // string
   'email' => 'new.email.address@demo.org' // string
 ]);
 
 // Directly updating a user password
-$user = $odk->users($userId)->updatePassword([
+$user = OdkCentral::users($userId)->updatePassword([
   'old' => 'old.password', // string
   'new' => 'new.password' // string
 ]);
 
 // Initiating a password reset
-$user = $odk->users()->passwordReset($userEmail);
+$user = OdkCentral::users()->passwordReset($userEmail);
 
 // Deleting a User
-$user = $odk->users($userId)->delete();
+$user = OdkCentral::users($userId)->delete();
 
 ```
 
@@ -130,15 +120,15 @@ $user = $odk->users($userId)->delete();
 
 ```php
 // Listing all App Users.
-$appUsers = $odk->projects($projectId)->appUsers()->get();
+$appUsers = OdkCentral::projects($projectId)->appUsers()->get();
 
 // Creating a new App User.
-$appUser = $odk->projects($projectId)->appUsers()->create([
+$appUser = OdkCentral::projects($projectId)->appUsers()->create([
   'displayName' => 'Jane Doe'
 ]);
 
 // Deleting a App User
-$appUser = $odk->projects($projectId)->appUsers($appUserId)->delete();
+$appUser = OdkCentral::projects($projectId)->appUsers($appUserId)->delete();
 
 ```
 
@@ -146,24 +136,24 @@ $appUser = $odk->projects($projectId)->appUsers($appUserId)->delete();
 
 ```php
 // Get a list of projects.
-$projects = $odk->projects()->get();
+$projects = OdkCentral::projects()->get();
 
 // Creating a Project.
-$project = $odk->projects()->create([
+$project = OdkCentral::projects()->create([
   'name' => 'My new project'
 ]);
 
 // Getting Project details
-$project = $odk->projects($projectId)->get();
+$project = OdkCentral::projects($projectId)->get();
 
 // Updating Project Details
-$project = $odk->projects($projectId)->update([
+$project = OdkCentral::projects($projectId)->update([
   'name' => 'New name', // string | required
   'archived' => false // boolean | optional
 ]);
 
 // Deep Updating Project and Form Details
-$project = $odk->projects($projectId)->deepUpdate([
+$project = OdkCentral::projects($projectId)->deepUpdate([
   'name' => 'New name', // string | required
   'archived' => false, // boolean | optional
   'forms' => [
@@ -181,13 +171,13 @@ $project = $odk->projects($projectId)->deepUpdate([
 ]);
 
 // Enabling Project Managed Encryption
-$project = $odk->projects($projectId)->encrypt([
+$project = OdkCentral::projects($projectId)->encrypt([
   'passphrase' => 'Super duper secret', // string | required
   'hint' => 'My reminder' // string | optional
 ]);
 
 // Deleting a Project
-$project = $odk->projects($projectId)->delete();
+$project = OdkCentral::projects($projectId)->delete();
 
 ```
 
@@ -195,15 +185,15 @@ $project = $odk->projects($projectId)->delete();
 
 ```php
 // List all forms of a project.
-$forms = $odk->projects($projectId)->forms()->get();
+$forms = OdkCentral::projects($projectId)->forms()->get();
 
 // Creating new form (before sending a new form be sure to validate it https://docs.getodk.org/validate/)
-$forms = $odk->projects($projectId)->forms()->create([
+$forms = OdkCentral::projects($projectId)->forms()->create([
 
 ]);
 
 // Getting form details
-$form = $odk->projects($projectId)->forms($xmlFormId)->get();
+$form = OdkCentral::projects($projectId)->forms($xmlFormId)->get();
 
 
 ```
@@ -212,18 +202,18 @@ $form = $odk->projects($projectId)->forms($xmlFormId)->get();
 
 ```php
 // Listing all submissions on a form
-$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions()->get();
+$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions()->get();
 
 // Getting Submission metadata
-$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->get();
+$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->get();
 
 // Updating Submission metadata
-$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->update([
+$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->update([
   'reviewState' => 'approved' // null, edited, hasIssues, rejected, approved | enum
 ]);
 
 // Retrieving Submission XML
-$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
+$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
 
 
 ```

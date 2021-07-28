@@ -131,20 +131,6 @@ class OdkCentral
     }
 
     /**
-     * Set the submissions xml endpoint.
-     *
-     * @return $this
-     */
-    public function xml()
-    {
-
-        $this->endpoint .= '.xml';
-
-        return $this->getBody();
-
-    }
-
-    /**
      * Get the list of projects.
      *
      * @param string|int $q
@@ -349,6 +335,40 @@ class OdkCentral
         $this->params = $params;
 
         return $this->post();
+
+    }
+
+    /**
+     * Set the submissions xml endpoint.
+     *
+     * @return $this
+     */
+    public function xml()
+    {
+
+        $this->endpoint .= '.xml';
+
+        return $this->getBody();
+
+    }
+
+    /**
+     * Set the submissions xml endpoint.
+     *
+     * @return $this
+     */
+    public function svc()
+    {
+
+        $this->headers = [
+            'Content-Type' => 'application/json',
+        ];
+
+        $this->endpoint .= '.svc';
+
+        $this->params = [];
+
+        return $this->get();
 
     }
 
