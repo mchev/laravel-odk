@@ -11,19 +11,23 @@
         "odk"
     ],
     "homepage": "https://github.com/mchev/laravel-odk",
+    "support": {
+        "issues": "https://github.com/mchev/laravel-odkk/issues",
+        "source": "https://github.com/mchev/laravel-odk"
+    },
     "license": "MIT",
     "type": "library",
     "authors": [
         {
             "name": "Martin Chevignard",
             "email": "martin.chevignard@gmail.com",
-            "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.4|^8.0",
         "guzzlehttp/guzzle": "^7.3",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0",
+        "illuminate/http": "^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
