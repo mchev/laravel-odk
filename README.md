@@ -224,6 +224,9 @@ $form = OdkCentral::projects($projectId)->forms($xmlFormId)->update([
   'state' => 'open'
 ]);
 
+// Getting form answers
+$answers = OdkCentral::projects($projectId)->forms($xmlFormId)->answers()->get();
+
 // Deleting a form
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->delete();
 

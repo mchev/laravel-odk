@@ -543,6 +543,28 @@ class OdkCentral
 
     }
 
+    /**
+     * Getting forms answers.
+     * TODO : documentation
+     * 
+     * @param int $top
+     * @param int $skip
+     * @param boolean $count
+     * @param boolean $wkt
+     * @return $this
+     */
+    public function answers($top = 250, $skip = 0, $count = true, $wkt = true)
+    {
+
+        $this->headers = [
+            'Content-Type' => 'application/json',
+        ];
+
+        $this->endpoint .= '.svc/Submissions?$top=' . $top . '&$skip=' . $skip . '&$count=' . $count . '&$wkt=' . $wkt;
+
+        return $this;
+
+    }
 
     /**
      * Create a new get request.
