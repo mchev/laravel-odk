@@ -226,15 +226,15 @@ $form = OdkCentral::projects($projectId)->forms($xmlFormId)->update([
 
 /* Getting form answers
  *
- * @param int $top optional
- * @param int $skip optional
+ * @param int $limit optional
+ * @param int $offest optional
  * @param boolean $count optional
  * @param boolean $wkt optional
  * @param string $filter optional
  *
  * See https://odkcentral.docs.apiary.io/#reference/odata-endpoints/odata-form-service/data-document for mor informations
  */
-$answers = OdkCentral::projects($projectId)->forms($xmlFormId)->answers($top, $skip, $count, $wkt, $filter)->get();
+$answers = OdkCentral::projects($projectId)->forms($xmlFormId)->answers($limit, $offest, $count, $wkt, $filter)->get();
 
 
 // Deleting a form
