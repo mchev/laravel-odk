@@ -203,8 +203,9 @@ $project = OdkCentral::projects($projectId)->delete();
 $forms = OdkCentral::projects($projectId)->forms()->get();
 
 // Creating new form (sending XForms XML or XLSForm file)
+// ⚠️ To send XLSForm in ODK you have to convert it before : https://getodk.org/xlsform/
 $form = OdkCentral::projects($projectId)->forms()->create([
-  'publish' => false // Optional
+  'publish' => false // required
 ], $request->file('your_input_file'));
 
 // Getting form details

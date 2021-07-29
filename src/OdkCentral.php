@@ -300,11 +300,11 @@ class OdkCentral
 
         if(!is_null($file)) {
 
-            $this->endpoint .= '?ignoreWarnings=true&formId=testtest';
+            $this->endpoint .= '?ignoreWarnings=true&publish=' . $this->params['publish'];
 
             $this->headers = [
                 'Content-Type' => $file->getMimeType(),
-                'X-XlsForm-FormId-Fallback' => $file->getClientOriginalName(),
+                'X-XlsForm-FormId-Fallback' => urlencode($file->getClientOriginalName()),
             ];
 
             $this->file = $file;
