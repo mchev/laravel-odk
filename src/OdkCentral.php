@@ -136,6 +136,24 @@ class OdkCentral
     }
 
     /**
+     * Set the comments endpoint.
+     *
+     * @return $this
+     */
+    public function comments()
+    {
+
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
+        $this->endpoint .= '/comments';
+
+        return $this;
+
+    }
+
+    /**
      * Get the list of projects.
      *
      * @param string|int $q

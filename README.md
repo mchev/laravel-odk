@@ -71,6 +71,21 @@ Don't forget to run ```php artisan config:clear```
 $users = OdkCentral::users()->get();
 ```
 
+Alternatively, if you don't want to use the OdkCentral Facade :
+
+```php
+use Mchev\LaravelOdk\OdkCentral;
+
+public function your_function()
+{
+
+  $odk = new OdkCentral;
+
+  $users = $odk->users()->get();
+
+}
+```
+
 ### [Users](https://odkcentral.docs.apiary.io/#reference/accounts-and-users/users)
 
 ```php
@@ -232,6 +247,14 @@ $submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions(
 
 // Retrieving Submission XML
 $submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
+
+// Geting Submission comments
+$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->comments()->get();
+
+// Posting Submission comments
+$submission = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->comments()->create([
+  'body' => 'this is the text of my comment',
+]);
 
 ```
 
