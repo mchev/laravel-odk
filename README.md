@@ -226,8 +226,8 @@ $form = OdkCentral::projects($projectId)->forms($xmlFormId)->update([
 
 /* Getting form answers
  *
- * @param int $limit optional
- * @param int $offest optional
+ * @param int $limit optional ($top)
+ * @param int $offest optional ($skip)
  * @param boolean $count optional
  * @param boolean $wkt optional
  * @param string $filter optional

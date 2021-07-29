@@ -562,6 +562,8 @@ class OdkCentral
 
         $this->endpoint .= '.svc/Submissions?$top=' . $top . '&$skip=' . $skip . '&$count=' . $count . '&$wkt=' . $wkt;
 
+        $this->params = [];
+
         return $this;
 
     }
