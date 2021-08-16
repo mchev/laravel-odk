@@ -202,13 +202,14 @@ $project = OdkCentral::projects($projectId)->delete();
 $forms = OdkCentral::projects($projectId)->forms()->get();
 
 // Creating new form (sending XForms XML or XLSForm file)
-// ⚠️ To send XLSForm in ODK you have to convert it before : https://getodk.org/xlsform/
-$form = OdkCentral::projects($projectId)->forms()->create([
-  'publish' => false // required
-], $request->file('your_input_file'));
+// If the second parameter is set to false, the form will be stored as draft.
+$form = OdkCentral::projects($projectId)->forms()->create($request->file('your_input_file'), true);
 
 // Getting form details
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->get();
+
+// Getting form fields
+$form = OdkCentral::projects($projectId)->forms($xmlFormId)->fields();
 
 // Listing form attachments
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->attachments()->get();
@@ -242,6 +243,29 @@ $form = OdkCentral::projects($projectId)->forms($xmlFormId)->delete();
 
 // Download form file (xml, xls, xlsx)
 return OdkCentral::projects($projectId)->forms($xmlFormId)->xlsx(); // xml(), xls(), xlsx()
+```
+
+### [Draft](https://odkcentral.docs.apiary.io/#reference/forms/draft-form)
+
+```php
+// Let's say we already have our form
+$form = OdkCentral::projects($projectId)->forms($xmlFormId);
+
+// Create a new draft
+$form->draft()->create($request->file('your_input_file'));
+
+// Getting Draft Form Details
+$form->draft()->get();
+
+// Getting Draft Form Fields
+$form->draft()->fields();
+
+// Publish the draft
+$form->draft()->publish('v1.2.0'); // string | optional
+
+// Deleting the draft
+$form->draft()->delete();
+
 ```
 
 ### [Submissions](https://odkcentral.docs.apiary.io/#reference/submissions)

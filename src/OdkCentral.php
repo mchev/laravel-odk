@@ -200,6 +200,26 @@ class OdkCentral
     }
 
     /**
+     * Draft endpoint.
+     *
+     * @param string|int $id
+     * @return $this
+     */
+    public function draft($id = null)
+    {
+
+        $this->headers = [
+            'X-Extended-Metadata' => 'true',
+        ];
+
+        $this->endpoint .= (!is_null($id)) ? '/draft/' . $id : '/draft';
+
+        return $this;
+
+    }
+
+
+    /**
      * Versions endpoint.
      * TODO : documentation
      *
@@ -248,13 +268,9 @@ class OdkCentral
     public function fields($odata = false)
     {
 
-        $this->endpoint .= '/fields';
+        $this->endpoint .= '/fields?odata=' . $odata;
 
-        $this->params = [
-            'odata' => $odata,
-        ];
-
-        return $this;
+        return $this->get();
 
     }
 
@@ -290,17 +306,16 @@ class OdkCentral
     /**
      * Create method is passing params to the request and then post it.
      *
-     * @param array $params
+     * @param file $file
+     * @param boolean $publish
      * @return collection
      */
-    public function create(array $params, $file = null)
+    public function create($file = null, $publish = false)
     {
-
-        $this->params = $params;
 
         if(!is_null($file)) {
 
-            $this->endpoint .= '?ignoreWarnings=true&publish=' . $this->params['publish'];
+            $this->endpoint .= '?ignoreWarnings=true&publish=' . $publish;
 
             $this->headers = [
                 'Content-Type' => $file->getMimeType(),
@@ -416,6 +431,23 @@ class OdkCentral
     }
 
     /**
+     * Getting authentificated User details.
+     *
+     * @param string $version
+     * @return $this
+     */
+    public function publish(string $version = null)
+    {
+
+        $v = $version ?? uniqid();
+
+        $this->endpoint  .= '/publish?version=' . $v;
+
+        return $this->post();
+
+    }
+
+    /**
      * Assign a user role.
      *
      * @param integer $roleId
@@ -444,6 +476,7 @@ class OdkCentral
         return $this->delete();
 
     }
+
 
     /**
      * Enabling Project Managed Encryption
@@ -551,16 +584,17 @@ class OdkCentral
      * @param int $skip
      * @param boolean $count
      * @param boolean $wkt
+     * @param string $filter
      * @return $this
      */
-    public function answers($top = 250, $skip = 0, $count = true, $wkt = true)
+    public function answers($top = 250, $skip = 0, $count = true, $wkt = true, $filter = '')
     {
 
         $this->headers = [
             'Content-Type' => 'application/json',
         ];
 
-        $this->endpoint .= '.svc/Submissions?$top=' . $top . '&$skip=' . $skip . '&$count=' . $count . '&$wkt=' . $wkt;
+        $this->endpoint .= '.svc/Submissions?$top=' . $top . '&$skip=' . $skip . '&$count=' . $count . '&$wkt=' . $wkt . '&$filter=' . $filter;
 
         $this->params = [];
 

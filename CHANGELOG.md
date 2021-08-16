@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.1.0 - 2021-08-16
+
+- Now supporting draft endpoints
+- Fix publish method
+- Changing the create method parameters
+
 ## 1.0.0 - 2021-07-29
 
 - First stable version
