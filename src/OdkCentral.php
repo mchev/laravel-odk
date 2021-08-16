@@ -505,7 +505,7 @@ class OdkCentral
 
         $this->endpoint .= '.xml';
 
-        return $this->download();
+        return $this;
 
     }
 
@@ -519,7 +519,7 @@ class OdkCentral
 
         $this->endpoint .= '.xls';
 
-        return $this->download();
+        return $this;
 
     }
 
@@ -533,7 +533,7 @@ class OdkCentral
 
         $this->endpoint .= '.xlsx';
 
-        return $this->download();
+        return $this;
 
     }
 

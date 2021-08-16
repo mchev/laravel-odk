@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.1.1 - 2021-08-16
+
+- Not calling download method automatically on file types to easily retrieve filepath and filename
+
 ## 1.1.0 - 2021-08-16
 
 - Now supporting draft endpoints

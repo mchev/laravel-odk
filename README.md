@@ -242,7 +242,7 @@ $answers = OdkCentral::projects($projectId)->forms($xmlFormId)->answers($limit, 
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->delete();
 
 // Download form file (xml, xls, xlsx)
-return OdkCentral::projects($projectId)->forms($xmlFormId)->xlsx(); // xml(), xls(), xlsx()
+return OdkCentral::projects($projectId)->forms($xmlFormId)->xlsx()->download(); // xml(), xls(), xlsx()
 ```
 
 ### [Draft](https://odkcentral.docs.apiary.io/#reference/forms/draft-form)
