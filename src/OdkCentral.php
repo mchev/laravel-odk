@@ -6,9 +6,9 @@ class OdkCentral
 {
 
 
-    private $api;
+    public $api;
 
-    private $endpoint;
+    public $endpoint;
 
     private $params;
 

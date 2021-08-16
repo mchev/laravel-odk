@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.1.2 - 2021-08-16
+
+- api_url and endpoint are now public
+
 ## 1.1.1 - 2021-08-16
 
 - Not calling download method automatically on file types to easily retrieve filepath and filename

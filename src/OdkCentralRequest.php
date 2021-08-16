@@ -8,7 +8,7 @@ use Illuminate\Http\Client\RequestException;
 class OdkCentralRequest
 {
 
-    private $api_url;
+    public $api_url;
 
     private $response;
 
