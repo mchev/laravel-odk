@@ -67,21 +67,24 @@ Don't forget to run ```php artisan config:clear```
 ## Usage
 
 ```php
-$users = OdkCentral::users()->get();
-```
+<?php
 
-Alternatively, if you don't want to use the OdkCentral Facade :
+namespace App\Http\Controllers;
 
-```php
-use Mchev\LaravelOdk\OdkCentral;
+use OdkCentral;
 
-public function your_function()
+class SomeController extends Controller
 {
+    public function testOdk()
+    {
 
-  $odk = new OdkCentral;
+        $project = OdkCentral::projects(1)->get();
 
-  $users = $odk->users()->get();
+        $form = OdkCentral::projects(1)->forms('basic')->get();
 
+        dd($project, $form);
+
+    }
 }
 ```
 
