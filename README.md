@@ -67,8 +67,6 @@ Don't forget to run ```php artisan config:clear```
 ## Usage
 
 ```php
-<?php
-
 namespace App\Http\Controllers;
 
 use OdkCentral;
