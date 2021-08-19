@@ -34,6 +34,7 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      */
     public function get(string $endpoint, array $params = [], array $headers = [])
     {
@@ -60,6 +61,7 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      */
     public function getBody(string $endpoint, array $params = [], array $headers = [])
     {
@@ -85,8 +87,10 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
+     * @param object $file
      */
-    public function post(string $endpoint, array $params = [], $file = null)
+    public function post(string $endpoint, array $params = [], array $headers = [], $file = null)
     {
 
         if(!is_null($file)) {
@@ -94,8 +98,9 @@ class OdkCentralRequest
             try {
 
                 $this->response = Http::withToken($this->token)
-                    ->attach('attachment', $file->get(), $file->getClientOriginalName())
-                    ->post($this->api_url . $endpoint, $params)
+                    ->withHeaders($headers)
+                    ->withBody($file->get(), $file->getMimeType())
+                    ->post($this->api_url . $endpoint)
                     ->object();
 
             } catch (RequestException $exception) {
@@ -109,6 +114,7 @@ class OdkCentralRequest
             try {
 
                 $this->response = Http::withToken($this->token)
+                    ->withHeaders($headers)
                     ->post($this->api_url . $endpoint, $params)
                     ->object();
 
@@ -129,8 +135,9 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      */
-    public function patch(string $endpoint, array $params = [])
+    public function patch(string $endpoint, array $params = [], array $headers = [])
     {
 
         try {
@@ -153,8 +160,9 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      */
-    public function put(string $endpoint, array $params = [])
+    public function put(string $endpoint, array $params = [], array $headers = [])
     {
 
         try {
@@ -177,8 +185,9 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      */
-    public function delete(string $endpoint, array $params = [])
+    public function delete(string $endpoint, array $params = [], array $headers = [])
     {
 
         try {
@@ -201,8 +210,9 @@ class OdkCentralRequest
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      */
-    public function download(string $endpoint, array $params = [])
+    public function download(string $endpoint, array $params = [], array $headers = [])
     {
 
         try {

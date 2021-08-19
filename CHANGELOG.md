@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.1.3 - 2021-08-17
+
+- Fix error while sending file with "create" method (withBody)
+- Fix passing missing headers
+- Adding expand parameter to the answers method
+- Handle 0 or null for $limit or $offset parameter
+
 ## 1.1.2 - 2021-08-16
 
 - api_url and endpoint are now public

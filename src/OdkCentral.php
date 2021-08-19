@@ -193,6 +193,7 @@ class OdkCentral
 
         $this->params = [
             'xmlFormId' => $id,
+            'formId' => $id,
         ];
 
         return $this;
@@ -580,21 +581,26 @@ class OdkCentral
      * Getting forms answers.
      * TODO : documentation
      * 
-     * @param int $top
-     * @param int $skip
+     * @param int|boolean $top
+     * @param int|boolean $skip
      * @param boolean $count
      * @param boolean $wkt
      * @param string $filter
+     * @param boolean $expand
      * @return $this
      */
-    public function answers($top = 250, $skip = 0, $count = true, $wkt = true, $filter = '')
+    public function answers($top = false, $skip = false, $count = false, $wkt = false, $filter = '', $expand = false)
     {
+
+        $top = ($top === 0 || is_null($top)) ? '' : $top;
+        $skip = ($skip === 0 || is_null($skip)) ? '' : $skip;
+        $expand = ($expand) ? '&#42;' : '';
 
         $this->headers = [
             'Content-Type' => 'application/json',
         ];
 
-        $this->endpoint .= '.svc/Submissions?$top=' . $top . '&$skip=' . $skip . '&$count=' . $count . '&$wkt=' . $wkt . '&$filter=' . $filter;
+        $this->endpoint .= '.svc/Submissions?%24top=' . $top . '&%24skip=' . $skip . '&%24count=' . $count . '&%24wkt=' . $wkt . '&%24filter=' . $filter . '&%24expand=' . $expand;
 
         $this->params = [];
 
@@ -639,12 +645,14 @@ class OdkCentral
      *
      * @param string $this->endpoint
      * @param array $this->params
+     * @param array $this->headers
+     * @param object $this->file
      * @return collection
      */
     public function post()
     {
 
-        return $this->api->post($this->endpoint, $this->params, $this->file);
+        return $this->api->post($this->endpoint, $this->params, $this->headers, $this->file);
 
     }
 
@@ -654,12 +662,13 @@ class OdkCentral
      *
      * @param string $this->endpoint
      * @param array $this->params
+     * @param array $this->headers
      * @return collection
      */
     public function patch()
     {
 
-        return $this->api->patch($this->endpoint, $this->params);
+        return $this->api->patch($this->endpoint, $this->params, $this->headers);
 
     }
 
@@ -668,12 +677,13 @@ class OdkCentral
      *
      * @param string $this->endpoint
      * @param array $this->params
+     * @param array $this->headers
      * @return collection
      */
     public function put()
     {
 
-        return $this->api->put($this->endpoint, $this->params);
+        return $this->api->put($this->endpoint, $this->params, $this->headers);
 
     }
 
@@ -682,12 +692,13 @@ class OdkCentral
      *
      * @param string $this->endpoint
      * @param array $this->params
+     * @param array $this->headers
      * @return collection
      */
     public function delete()
     {
 
-        return $this->api->delete($this->endpoint, $this->params);
+        return $this->api->delete($this->endpoint, $this->params, $this->headers);
 
     }
 
@@ -696,12 +707,13 @@ class OdkCentral
      *
      * @param string $this->endpoint
      * @param array $this->params
+     * @param array $this->headers
      * @return collection
      */
     public function download()
     {
 
-        return $this->api->download($this->endpoint, $this->params);
+        return $this->api->download($this->endpoint, $this->params, $this->headers);
 
     }
 
