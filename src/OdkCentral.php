@@ -8,6 +8,12 @@ class OdkCentral
 
     public $api;
 
+    public $projectId;
+
+    public $xmlFormId;
+
+    public $submissionId;
+
     public $endpoint;
 
     private $params;
@@ -20,6 +26,12 @@ class OdkCentral
     public function __construct()
     {
         $this->api = new OdkCentralRequest;
+
+        $this->projectId = null;
+
+        $this->xmlFormId = null;
+
+        $this->submissionId = null;
 
         $this->endpoint = '';
 
@@ -125,7 +137,13 @@ class OdkCentral
     public function submissions($id = null)
     {
 
-        $this->endpoint .= (!is_null($id)) ? '/submissions/' . $id : '/submissions';
+        $this->submissionId = (!is_null($id)) ? $id : null;
+
+        $formEndpoint = '/projects/' . $this->projectId . '/forms/' . $this->xmlFormId;
+
+        $submissionsEndpoint = ($this->submissionId) ? '/submissions/' . $this->submissionId : '/submissions';
+
+        $this->endpoint = $formEndpoint . $submissionsEndpoint;
 
         $this->params = [
             'id' => $id,
@@ -166,7 +184,9 @@ class OdkCentral
             'X-Extended-Metadata' => 'true',
         ];
 
-        $this->endpoint .= (is_int($q)) ? '/projects/' . $q : '/projects';
+        $this->projectId = (is_int($q)) ? $q : null;
+
+        $this->endpoint .= ($this->projectId) ? '/projects/' . $this->projectId : '/projects';
 
         $this->params = [
             'q' => $q,
@@ -189,7 +209,9 @@ class OdkCentral
             'X-Extended-Metadata' => 'true',
         ];
 
-        $this->endpoint .= (!is_null($id)) ? '/forms/' . $id : '/forms';
+        $this->xmlFormId = (!is_null($id)) ? $id : null;
+
+        $this->endpoint .= ($this->xmlFormId) ? '/forms/' . $this->xmlFormId : '/forms';
 
         $this->params = [
             'xmlFormId' => $id,
@@ -559,53 +581,133 @@ class OdkCentral
     }
 
     /**
-     * Set the odata Data document endpoint.
-     * TODO : documentation
-     *
-     * @return $this
+     * Getting forms answers.
+     * 
+     * @return $odata
      */
-    public function data($table)
+    public function answers()
     {
 
-        $this->headers = [
-            'Content-Type' => 'application/json',
-        ];
+        $url = ($this->submissionId) ? "Submissions('" . $this->submissionId . "')" : "Submissions";
 
-        $this->endpoint .= '.svc/' . $table;
+        $odata = $this->odata($url)->get();
 
-        return $this;
+        return $odata;
+
+    }
+
+    /* 
+    * Getting submissions data (answers)
+    * OdkCentral::project($projectId)->form($xmlFormId)->submissions($uuid)->data();
+    *
+    * @param boolean $format
+    * @return array $values
+    */
+    public function answersWithRepeats($format = false) {
+
+
+        $answers = $this->answers();
+
+        if( isset($answers->value) ) {
+
+            $values = $answers->value[0];
+
+            $values = $this->fetchRepeatTable($values);
+
+            return ($format) ? $this->format($values) : $values;
+
+        }
+
+        return null;
 
     }
 
     /**
-     * Getting forms answers.
-     * TODO : documentation
-     * 
-     * @param int|boolean $top
-     * @param int|boolean $skip
+     * OData request.
+     *
+     * @param string $url
+     * @param boolean $top
+     * @param boolean $skip
      * @param boolean $count
      * @param boolean $wkt
      * @param string $filter
      * @param boolean $expand
      * @return $this
      */
-    public function answers($top = false, $skip = false, $count = false, $wkt = false, $filter = '', $expand = false)
+    public function odata($url= '', $top = false, $skip = false, $count = false, $wkt = false, $filter = '', $expand = false)
     {
 
         $top = ($top === 0 || is_null($top)) ? '' : $top;
         $skip = ($skip === 0 || is_null($skip)) ? '' : $skip;
         $expand = ($expand) ? '&#42;' : '';
 
+        $base = '/projects/' . $this->projectId . '/forms/' . $this->xmlFormId;
+
         $this->headers = [
             'Content-Type' => 'application/json',
         ];
 
-        $this->endpoint .= '.svc/Submissions?%24top=' . $top . '&%24skip=' . $skip . '&%24count=' . $count . '&%24wkt=' . $wkt . '&%24filter=' . $filter . '&%24expand=' . $expand;
+        $this->endpoint = $base . '.svc/' . $url . '?%24top=' . $top . '&%24skip=' . $skip . '&%24count=' . $count . '&%24wkt=' . $wkt . '&%24filter=' . $filter . '&%24expand=' . $expand;
 
         $this->params = [];
 
         return $this;
 
+    }
+
+    public function fetchRepeatTable($data)
+    {
+
+        foreach($data as $key => $value)
+        {
+
+            if (is_object($value)) 
+                $this->fetchRepeatTable($value);
+            else {
+                if (str_contains($key, "@odata.navigationLink")) {
+
+                    $newKey = str_replace("@odata.navigationLink", "", $key);
+                    unset($data->$key);
+
+                    $repeatItem = $this->odata($value)->get()->value;
+
+                    $data->$newKey = $repeatItem;
+                }
+            }
+
+        }
+
+        return $data;
+
+    }
+
+    public function format($data)
+    {
+        foreach($data as $key => $value)
+        {
+
+            if ( substr( $key, 0, 2 ) === "__" || $key === "meta") {
+
+                unset($data->$key);
+
+            } else {
+
+                if (is_object($value) || is_array($value)) 
+
+                    $this->format($value);
+
+                else {
+
+                    //$data->$key->question_name = $key;
+                    //$data->$key->value = $value;
+
+                }
+
+            }
+
+        }
+
+        return $data;
     }
 
     /**

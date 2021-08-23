@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.2.0 - 2021-08-23
+
+- OData requests
+- Getting answers
+- Formatting answers
+
 ## 1.1.3 - 2021-08-17
 
 - Fix error while sending file with "create" method (withBody)

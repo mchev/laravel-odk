@@ -226,19 +226,6 @@ $form = OdkCentral::projects($projectId)->forms($xmlFormId)->update([
   'state' => 'open'
 ]);
 
-/* Getting form answers
- *
- * @param int $limit optional ($top)
- * @param int $offest optional ($skip)
- * @param boolean $count optional
- * @param boolean $wkt optional
- * @param string $filter optional
- *
- * See https://odkcentral.docs.apiary.io/#reference/odata-endpoints/odata-form-service/data-document for mor informations
- */
-$answers = OdkCentral::projects($projectId)->forms($xmlFormId)->answers($limit, $offest, $count, $wkt, $filter)->get();
-
-
 // Deleting a form
 $form = OdkCentral::projects($projectId)->forms($xmlFormId)->delete();
 
@@ -294,6 +281,47 @@ $submission = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($
   'body' => 'this is the text of my comment',
 ]);
 
+```
+
+### Answers/Responses
+```php
+// Our form
+$form = OdkCentral::projects($projectId)->forms($xmlFormId);
+
+// You can get answers directly :
+$answers = $form()->answers();
+// OR
+$anwserWithRepeats = $form()->answersWithRepeats();
+
+// If you need to get only answers associated to a submission :
+$answers = $form()->submissions($submissionId)->answers();
+// OR
+$anwserWithRepeats = $form()->submissions($submissionId)->answersWithRepeats();
+
+// answersWithRepeats() method accept a boolean parameter to only get the questions and responses (no meta, ids, etc)
+$onlyAnswers = $form()->submissions($submissionId)->answersWithRepeats(true);
+```
+
+### Odata
+```php
+// Our form
+$form = OdkCentral::projects($projectId)->forms($xmlFormId);
+
+/**
+ * OData request.
+ *
+ * @param string $url
+ * @param boolean $top
+ * @param boolean $skip
+ * @param boolean $count
+ * @param boolean $wkt
+ * @param string $filter
+ * @param boolean $expand
+ */
+$data = $form->odata($url= '', $top = false, $skip = false, $count = false, $wkt = false, $filter = '', $expand = false)->get();
+
+// Example : 
+$submissions = $form->odata('Submission')->get();
 ```
 
 ### Testing
