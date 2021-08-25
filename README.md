@@ -321,7 +321,7 @@ $form = OdkCentral::projects($projectId)->forms($xmlFormId);
 $data = $form->odata($url= '', $top = false, $skip = false, $count = false, $wkt = false, $filter = '', $expand = false)->get();
 
 // Example : 
-$submissions = $form->odata('Submission')->get();
+$submissions = $form->odata('Submissions')->get();
 ```
 
 ### Testing
