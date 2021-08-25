@@ -143,6 +143,7 @@ class OdkCentralRequest
         try {
 
             $this->response = Http::withToken($this->token)
+                ->withHeaders($headers)
                 ->patch($this->api_url . $endpoint, $params)
                 ->object();
 
@@ -168,6 +169,7 @@ class OdkCentralRequest
         try {
 
             $this->response = Http::withToken($this->token)
+                ->withHeaders($headers)
                 ->put($this->api_url . $endpoint, $params)
                 ->object();
 
@@ -193,6 +195,7 @@ class OdkCentralRequest
         try {
 
             $this->response = Http::withToken($this->token)
+                ->withHeaders($headers)
                 ->delete($this->api_url . $endpoint, $params)
                 ->object();
 
@@ -218,6 +221,7 @@ class OdkCentralRequest
         try {
 
             $this->response = Http::withToken($this->token)
+                ->withHeaders($headers)
                 ->get($this->api_url . $endpoint, $params);
 
         } catch (RequestException $exception) {

@@ -331,14 +331,15 @@ class OdkCentral
      *
      * @param file $file
      * @param boolean $publish
+     * @param boolean $ignoreWarnings
      * @return collection
      */
-    public function create($file = null, $publish = false)
+    public function create($file = null, $publish = false, $ignoreWarnings = false)
     {
 
         if(!is_null($file)) {
 
-            $this->endpoint .= '?ignoreWarnings=true&publish=' . $publish;
+            $this->endpoint .= '?ignoreWarnings='. $ignoreWarnings . '&publish=' . $publish;
 
             $this->headers = [
                 'Content-Type' => $file->getMimeType(),

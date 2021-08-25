@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.2.1 - 2021-08-25
+
+- Adding $publish and $ignoreWarnings parameters to create method.
+- Passing headers to all requests
+
 ## 1.2.0 - 2021-08-23
 
 - OData requests
