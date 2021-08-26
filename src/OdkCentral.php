@@ -664,16 +664,36 @@ class OdkCentral
 
             if (is_object($value)) 
                 $this->fetchRepeatTable($value);
+
             else {
+
                 if (str_contains($key, "@odata.navigationLink")) {
 
                     $newKey = str_replace("@odata.navigationLink", "", $key);
+
                     unset($data->$key);
 
-                    $repeatItem = $this->odata($value)->get()->value;
+                    $newValue = $this->odata($value)->get()->value;
 
-                    $data->$newKey = $repeatItem;
+                    if(is_array($newValue)) {
+
+                        foreach($newValue as $k => $v) {
+                            $newK = $newKey . '_' . $k;
+                            unset($newValue[$k]);
+                            $newValue[$newK] = $this->fetchRepeatTable($v);
+                        }
+
+                        $data->$newKey = (object)$newValue;
+
+                    } else {
+
+                        $data->$newKey = $this->fetchRepeatTable($this->odata($value)->get()->value);
+
+                    }
+
+
                 }
+                
             }
 
         }
