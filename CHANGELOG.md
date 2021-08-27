@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.2.3 - 2021-08-27
+
+- Let a version be empty on publish
+
 ## 1.2.2 - 2021-08-26
 
 - Better loop through answers (convert to object and rename keys)

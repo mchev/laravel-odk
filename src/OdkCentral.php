@@ -460,12 +460,10 @@ class OdkCentral
      * @param string $version
      * @return $this
      */
-    public function publish(string $version = null)
+    public function publish(string $version = '')
     {
 
-        $v = $version ?? uniqid();
-
-        $this->endpoint  .= '/publish?version=' . $v;
+        $this->endpoint  .= '/publish?version=' . $version;
 
         return $this->post();
 
