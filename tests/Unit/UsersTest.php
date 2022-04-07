@@ -29,6 +29,7 @@ class UsersTest extends TestCase
      */
     public function test_can_get_user()
     {
+
         $userId = 115;
 
         $user = OdkCentral::users(115)->get();
