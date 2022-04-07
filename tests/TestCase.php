@@ -4,7 +4,6 @@ namespace Mchev\LaravelOdk\Tests;
 
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Config;
 
 abstract class TestCase extends Orchestra
 {
@@ -14,11 +13,6 @@ abstract class TestCase extends Orchestra
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
         parent::getEnvironmentSetUp($app);
-
-        Config::set('odkcentral.api_url', 'https://private-anon-f36a3f79fb-odkcentral.apiary-mock.com/v1');
-        Config::set('odkcentral.user_email', 'my.email.address@getodk.org');
-        Config::set('odkcentral.user_password', 'my.super.secure.password');
-
     }
 
     protected function getPackageProviders($app): array
