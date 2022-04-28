@@ -69,18 +69,19 @@ Don't forget to run ```php artisan config:clear```
 ```php
 namespace App\Http\Controllers;
 
-use OdkCentral;
+use Mchev\LaravelOdk\OdkCentral;
 
 class SomeController extends Controller
 {
     public function testOdk()
     {
+      $odk = new OdkCentral;
 
-        $project = OdkCentral::projects(1)->get();
+      $project = $odk->projects(1)->get();
 
-        $form = OdkCentral::projects(1)->forms('basic')->get();
+      $form = $odk->projects(1)->forms('basic')->get();
 
-        dd($project, $form);
+      dd($project, $form);
 
     }
 }
@@ -90,43 +91,43 @@ class SomeController extends Controller
 
 ```php
 // Get all users.
-$users = OdkCentral::users()->get();
+$users = $odk->users()->get();
 
 // Searching users
-$users = OdkCentral::users('Jane')->get();
+$users = $odk->users('Jane')->get();
 
 // You can also use eloquent 💥
-$users = OdkCentral::users()->get()->sortBy('displayName');
+$users = $odk->users()->get()->sortBy('displayName');
 
 // Creating a new user.
-$user = OdkCentral::users()->create([
+$user = $odk->users()->create([
   'email' => 'example@email.com',
   'password' => 'password' // Optional (That email address will receive a message instructing the new user on how to claim their new account and set a password.)
 ]);
 
 // Getting User details
-$user = OdkCentral::users($userId)->get();
+$user = $odk->users($userId)->get();
 
 // Getting authenticated User details
-$user = OdkCentral::users()->current();
+$user = $odk->users()->current();
 
 // Modifying a User
-$user = OdkCentral::users($userId)->update([
+$user = $odk->users($userId)->update([
   'displayName' => 'New name', // string
   'email' => 'new.email.address@demo.org' // string
 ]);
 
 // Directly updating a user password
-$user = OdkCentral::users($userId)->updatePassword([
+$user = $odk->users($userId)->updatePassword([
   'old' => 'old.password', // string
   'new' => 'new.password' // string
 ]);
 
 // Initiating a password reset
-$user = OdkCentral::users()->passwordReset($userEmail);
+$user = $odk->users()->passwordReset($userEmail);
 
 // Deleting a User
-$user = OdkCentral::users($userId)->delete();
+$user = $odk->users($userId)->delete();
 
 ```
 
@@ -135,15 +136,15 @@ $user = OdkCentral::users($userId)->delete();
 
 ```php
 // Listing all App Users.
-$appUsers = OdkCentral::projects($projectId)->appUsers()->get();
+$appUsers = $odk->projects($projectId)->appUsers()->get();
 
 // Creating a new App User.
-$appUser = OdkCentral::projects($projectId)->appUsers()->create([
+$appUser = $odk->projects($projectId)->appUsers()->create([
   'displayName' => 'Jane Doe'
 ]);
 
 // Deleting a App User
-$appUser = OdkCentral::projects($projectId)->appUsers($appUserId)->delete();
+$appUser = $odk->projects($projectId)->appUsers($appUserId)->delete();
 
 ```
 
@@ -151,24 +152,24 @@ $appUser = OdkCentral::projects($projectId)->appUsers($appUserId)->delete();
 
 ```php
 // Get a list of projects.
-$projects = OdkCentral::projects()->get();
+$projects = $odk->projects()->get();
 
 // Creating a Project.
-$project = OdkCentral::projects()->create([
+$project = $odk->projects()->create([
   'name' => 'My new project'
 ]);
 
 // Getting Project details
-$project = OdkCentral::projects($projectId)->get();
+$project = $odk->projects($projectId)->get();
 
 // Updating Project Details
-$project = OdkCentral::projects($projectId)->update([
+$project = $odk->projects($projectId)->update([
   'name' => 'New name', // string | required
   'archived' => false // boolean | optional
 ]);
 
 // Deep Updating Project and Form Details
-$project = OdkCentral::projects($projectId)->deepUpdate([
+$project = $odk->projects($projectId)->deepUpdate([
   'name' => 'New name', // string | required
   'archived' => false, // boolean | optional
   'forms' => [
@@ -186,13 +187,13 @@ $project = OdkCentral::projects($projectId)->deepUpdate([
 ]);
 
 // Enabling Project Managed Encryption
-$project = OdkCentral::projects($projectId)->encrypt([
+$project = $odk->projects($projectId)->encrypt([
   'passphrase' => 'Super duper secret', // string | required
   'hint' => 'My reminder' // string | optional
 ]);
 
 // Deleting a Project
-$project = OdkCentral::projects($projectId)->delete();
+$project = $odk->projects($projectId)->delete();
 
 ```
 
@@ -200,44 +201,44 @@ $project = OdkCentral::projects($projectId)->delete();
 
 ```php
 // List all forms of a project.
-$forms = OdkCentral::projects($projectId)->forms()->get();
+$forms = $odk->projects($projectId)->forms()->get();
 
 // Creating new form (sending XForms XML or XLSForm file)
 // If the second parameter is set to false, the form will be stored as draft.
-$form = OdkCentral::projects($projectId)->forms()->create($request->file('your_input_file'), true);
+$form = $odk->projects($projectId)->forms()->create($request->file('your_input_file'), true);
 
 // Getting form details
-$form = OdkCentral::projects($projectId)->forms($xmlFormId)->get();
+$form = $odk->projects($projectId)->forms($xmlFormId)->get();
 
 // Getting form fields
-$form = OdkCentral::projects($projectId)->forms($xmlFormId)->fields();
+$form = $odk->projects($projectId)->forms($xmlFormId)->fields();
 
 // Listing form attachments
-$form = OdkCentral::projects($projectId)->forms($xmlFormId)->attachments()->get();
+$form = $odk->projects($projectId)->forms($xmlFormId)->attachments()->get();
 
 // Downloading a form attachment
-return OdkCentral::projects($projectId)->forms($xmlFormId)->downloadAttachment($filename);
+return $odk->projects($projectId)->forms($xmlFormId)->downloadAttachment($filename);
 
 // Getting form shema fields
-$form = OdkCentral::projects($projectId)->forms($xmlFormId)->fields()->get();
+$form = $odk->projects($projectId)->forms($xmlFormId)->fields()->get();
 
 // Modifying a form
-$form = OdkCentral::projects($projectId)->forms($xmlFormId)->update([
+$form = $odk->projects($projectId)->forms($xmlFormId)->update([
   'state' => 'open'
 ]);
 
 // Deleting a form
-$form = OdkCentral::projects($projectId)->forms($xmlFormId)->delete();
+$form = $odk->projects($projectId)->forms($xmlFormId)->delete();
 
 // Download form file (xml, xls, xlsx)
-return OdkCentral::projects($projectId)->forms($xmlFormId)->xlsx()->download(); // xml(), xls(), xlsx()
+return $odk->projects($projectId)->forms($xmlFormId)->xlsx()->download(); // xml(), xls(), xlsx()
 ```
 
 ### [Draft](https://odkcentral.docs.apiary.io/#reference/forms/draft-form)
 
 ```php
 // Let's say we already have our form
-$form = OdkCentral::projects($projectId)->forms($xmlFormId);
+$form = $odk->projects($projectId)->forms($xmlFormId);
 
 // Create a new draft
 $form->draft()->create($request->file('your_input_file'));
@@ -260,24 +261,24 @@ $form->draft()->delete();
 
 ```php
 // Listing all submissions on a form
-$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions()->get();
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions()->get();
 
 // Getting Submission metadata
-$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->get();
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->get();
 
 // Updating Submission metadata
-$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->update([
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->update([
   'reviewState' => 'approved' // null, edited, hasIssues, rejected, approved | enum
 ]);
 
 // Retrieving Submission XML
-$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->xml();
 
 // Geting Submission comments
-$submissions = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->comments()->get();
+$submissions = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->comments()->get();
 
 // Posting Submission comments
-$submission = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($instanceId)->comments()->create([
+$submission = $odk->projects($projectId)->forms($xmlFormId)->submissions($instanceId)->comments()->create([
   'body' => 'this is the text of my comment',
 ]);
 
@@ -286,7 +287,7 @@ $submission = OdkCentral::projects($projectId)->forms($xmlFormId)->submissions($
 ### Answers/Responses
 ```php
 // Our form
-$form = OdkCentral::projects($projectId)->forms($xmlFormId);
+$form = $odk->projects($projectId)->forms($xmlFormId);
 
 // You can get answers directly :
 $answers = $form()->answers();
@@ -305,7 +306,7 @@ $onlyAnswers = $form()->submissions($submissionId)->answersWithRepeats(true);
 ### Odata
 ```php
 // Our form
-$form = OdkCentral::projects($projectId)->forms($xmlFormId);
+$form = $odk->projects($projectId)->forms($xmlFormId);
 
 /**
  * OData request.
