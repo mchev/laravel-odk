@@ -64,7 +64,8 @@ ODK_USER_PASSWORD=your_password
 
 Don't forget to run ```php artisan config:clear```
 
-If you change your crendentials later you will also have to run ```php artisan cache:clear```. The authentification token is cached for 3600 seconds.
+If you change your crendentials later you will also have to run ```php artisan cache:clear```.
+The authentification token is cached for 3600 seconds.
 
 ## Usage
 
