@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
 [![Total Downloads](https://img.shields.io/packagist/dt/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
 ![GitHub Actions](https://github.com/mchev/laravel-odk/actions/workflows/main.yml/badge.svg)
-[![Laravel compatibility](https://img.shields.io/badge/laravel-8%7C9-green)
+![Laravel compatibility]([https://img.shields.io/badge/laravel-8%7C9-green](https://img.shields.io/badge/laravel-%5E8.0%7C%5E9.0-brightgreen)
 
 Laravel-ODK is a simple wrapper around the ODK Central API that makes working with its endpoints a breeze! 
 To get more informations about the API see [https://odkcentral.docs.apiary.io/](https://odkcentral.docs.apiary.io/#)
