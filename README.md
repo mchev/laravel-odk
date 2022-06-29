@@ -3,6 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
 [![Total Downloads](https://img.shields.io/packagist/dt/mchev/laravel-odk.svg?style=flat-square)](https://packagist.org/packages/mchev/laravel-odk)
 ![GitHub Actions](https://github.com/mchev/laravel-odk/actions/workflows/main.yml/badge.svg)
+![Laravel compatibility](https://img.shields.io/badge/laravel-%5E8.0%7C%5E9.0-brightgreen)
 
 Laravel-ODK is a simple wrapper around the ODK Central API that makes working with its endpoints a breeze! 
 To get more informations about the API see [https://odkcentral.docs.apiary.io/](https://odkcentral.docs.apiary.io/#)
@@ -63,6 +64,9 @@ ODK_USER_PASSWORD=your_password
 ```
 
 Don't forget to run ```php artisan config:clear```
+
+If you change your crendentials later you will also have to run ```php artisan cache:clear```.
+The authentification token is cached for 3600 seconds.
 
 ## Usage
 
@@ -338,10 +342,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-### Security
-
-If you discover any security related issues, please email martin.chevignard@gmail.com instead of using the issue tracker.
 
 ## Credits
 
