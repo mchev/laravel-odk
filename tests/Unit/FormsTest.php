@@ -2,14 +2,10 @@
 
 namespace Mchev\LaravelOdk\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Mchev\LaravelOdk\Tests\TestCase;
 use OdkCentral;
 
 class FormsTest extends TestCase
 {
-    
     /**
      * Test if can get projects list.
      *
@@ -32,5 +28,4 @@ class FormsTest extends TestCase
         $forms = OdkCentral::projects($projects->first()->id)->forms()->get();
         $this->assertNotNull($forms);
     }
-
 }

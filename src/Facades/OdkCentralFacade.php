@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Mchev\LaravelOdk\Facades;
 
-use Mchev\LaravelOdk\OdkCentral;
 use Illuminate\Support\Facades\Facade;
-
+use Mchev\LaravelOdk\OdkCentral;
 
 class OdkCentralFacade extends Facade
 {

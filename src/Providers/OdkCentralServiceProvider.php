@@ -2,7 +2,6 @@
 
 namespace Mchev\LaravelOdk\Providers;
 
-use Mchev\LaravelOdk\OdkCentral;
 use Illuminate\Support\ServiceProvider;
 
 class OdkCentralServiceProvider extends ServiceProvider
@@ -21,7 +20,6 @@ class OdkCentralServiceProvider extends ServiceProvider
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
-
             $this->publishes([
                 __DIR__.'/../../config/config.php' => config_path('odkcentral.php'),
             ], 'config');
@@ -43,7 +41,6 @@ class OdkCentralServiceProvider extends ServiceProvider
 
             // Registering package commands.
             // $this->commands([]);
-            
         }
     }
 
