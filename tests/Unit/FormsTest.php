@@ -2,7 +2,7 @@
 
 namespace Mchev\LaravelOdk\Tests;
 
-use OdkCentral;
+use Mchev\LaravelOdk\OdkCentral;
 
 class FormsTest extends TestCase
 {
@@ -13,7 +13,7 @@ class FormsTest extends TestCase
      */
     public function test_can_get_projects()
     {
-        $projects = OdkCentral::projects()->get();
+        $projects = (new OdkCentral())->projects()->get();
         $this->assertNotNull($projects);
     }
 
@@ -24,8 +24,8 @@ class FormsTest extends TestCase
      */
     public function test_can_get_forms()
     {
-        $projects = OdkCentral::projects()->get();
-        $forms = OdkCentral::projects($projects->first()->id)->forms()->get();
+        $projects = (new OdkCentral())->projects()->get();
+        $forms = (new OdkCentral())->projects($projects->first()->id)->forms()->get();
         $this->assertNotNull($forms);
     }
 }

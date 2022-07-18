@@ -2,10 +2,11 @@
 
 namespace Mchev\LaravelOdk\Tests;
 
-use OdkCentral;
+use Mchev\LaravelOdk\OdkCentral;
 
 class UsersTest extends TestCase
 {
+
     /**
      * Test if can get users list.
      *
@@ -13,7 +14,7 @@ class UsersTest extends TestCase
      */
     public function test_can_get_users()
     {
-        $users = OdkCentral::users()->get();
+        $users = (new OdkCentral())->users()->get();
 
         $this->assertNotNull($users);
     }
@@ -27,7 +28,7 @@ class UsersTest extends TestCase
     {
         $userId = 115;
 
-        $user = OdkCentral::users(115)->get();
+        $user = (new OdkCentral())->users(115)->get();
 
         $this->assertEquals($user->id, $userId);
     }
