@@ -25,7 +25,7 @@
     <env name="MAIL_DRIVER" value="array"/>
     <env name="QUEUE_CONNECTION" value="sync"/>
     <env name="SESSION_DRIVER" value="array"/>
-    <env name="ODK_API_URL" value="https://private-anon-f36a3f79fb-odkcentral.apiary-mock.com/v1"/>
+    <env name="ODK_API_URL" value="https://private-anon-d609a0b89a-odkcentral.apiary-mock.com/v1/"/>
     <env name="ODK_USER_EMAIL" value="my.email.address@getodk.org"/>
     <env name="ODK_USER_PASSWORD" value="my.super.secure.password"/>
   </php>
