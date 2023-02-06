@@ -5,24 +5,24 @@ on: [push, pull_request]
 jobs:
     test:
         runs-on: ubuntu-22.04
-        strategy:
-            fail-fast: true
-            matrix:
-              php: [7.3, 7.4, '8.0', 8.1, 8.2]
-              laravel: [8, 9, 10]
-              exclude:
-                - php: 7.3
-                  laravel: 9
-                - php: 7.3
-                  laravel: 10
-                - php: 7.4
-                  laravel: 9
-                - php: 7.4
-                  laravel: 10
-                - php: '8.0'
-                  laravel: 10
-                - php: 8.2
-                  laravel: 8
+strategy:
+    fail-fast: true
+    matrix:
+      php: [7.3, 7.4, '8.0', 8.1, 8.2]
+      laravel: [8, 9, 10]
+      exclude:
+        - php: 7.3
+          laravel: 9
+        - php: 7.3
+          laravel: 10
+        - php: 7.4
+          laravel: 9
+        - php: 7.4
+          laravel: 10
+        - php: '8.0'
+          laravel: 10
+        - php: 8.2
+          laravel: 8
 
         name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
@@ -45,7 +45,7 @@ jobs:
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
             - name: Install dependencies
               run: |
-                composer require "illuminate/support=^${{ matrix.laravel }}" --dev --no-update
+                composer require "illuminate/contracts=^${{ matrix.laravel }}" --dev --no-update
                 composer update --prefer-dist --no-interaction --no-progress
             - name: Execute tests
               run: vendor/bin/phpunit --verbose
