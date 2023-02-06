@@ -264,7 +264,7 @@ class OdkCentral
     {
         $this->endpoint .= '/fields?odata='.$odata;
 
-        return $this->get();
+        return $this;
     }
 
     /**

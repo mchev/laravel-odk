@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'api_url' => env('ODK_API_URL', 'https://private-anon-f36a3f79fb-odkcentral.apiary-mock.com/v1'),
+    'api_url' => env('ODK_API_URL', 'https://private-anon-7f664ec078-odkcentral.apiary-mock.com/v1/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -25,6 +25,6 @@ return [
 
     'user_email' => env('ODK_USER_EMAIL', 'my.email.address@getodk.org'),
 
-    'user_password' => env('ODK_USER_PASSWORD', 'my.super.secure.password'),
+    'user_password' => env('ODK_USER_PASSWORD', 'my.password'),
 
 ];

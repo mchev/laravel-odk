@@ -75,21 +75,34 @@ namespace App\Http\Controllers;
 
 use Mchev\LaravelOdk\OdkCentral;
 
-class SomeController extends Controller
+class SomeController
 {
     public function testOdk()
     {
       $odk = new OdkCentral;
-
       $project = $odk->projects(1)->get();
-
-      $form = $odk->projects(1)->forms('basic')->get();
-
-      dd($project, $form);
-
+      dd($project);
     }
 }
 ```
+
+Usage with Facade :
+
+```php
+namespace App\Http\Controllers;
+
+use Mchev\LaravelOdk\Facades\OdkCentral;
+
+class SomeController
+{
+    public function returnFormFields($projectId, $xmlFormId)
+    {
+      $fields = OdkCentral::projects($projectId)->forms($xmlFormId)->fields()->get();
+      dd($fields);
+    }
+}
+```
+
 
 ### [Users](https://odkcentral.docs.apiary.io/#reference/accounts-and-users/users)
 
@@ -214,17 +227,15 @@ $form = $odk->projects($projectId)->forms()->create($request->file('your_input_f
 // Getting form details
 $form = $odk->projects($projectId)->forms($xmlFormId)->get();
 
-// Getting form fields
-$form = $odk->projects($projectId)->forms($xmlFormId)->fields();
+// Getting form schema fields
+$form = $odk->projects($projectId)->forms($xmlFormId)->fields()->get();
+// You may optionally add the 'true' parameter to the fields() method to sanitize the field names and paths to match the way they will be outputted for OData
 
 // Listing form attachments
 $form = $odk->projects($projectId)->forms($xmlFormId)->attachments()->get();
 
 // Downloading a form attachment
 return $odk->projects($projectId)->forms($xmlFormId)->downloadAttachment($filename);
-
-// Getting form shema fields
-$form = $odk->projects($projectId)->forms($xmlFormId)->fields()->get();
 
 // Modifying a form
 $form = $odk->projects($projectId)->forms($xmlFormId)->update([

@@ -36,6 +36,8 @@ class OdkCentralAuth
             'password' => $this->password,
         ]);
 
+        $response->throw();
+
         $body = $response->body();
         $token = $response->json()['token'];
 

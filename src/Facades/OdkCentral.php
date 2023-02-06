@@ -3,9 +3,8 @@
 namespace Mchev\LaravelOdk\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Mchev\LaravelOdk\OdkCentral;
 
-class OdkCentralFacade extends Facade
+class OdkCentral extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -14,6 +13,6 @@ class OdkCentralFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return new OdkCentral;
+        return 'odkcentral';
     }
 }

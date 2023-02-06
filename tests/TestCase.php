@@ -25,7 +25,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageAliases($app): array
     {
         return [
-            'OdkCentral' => 'Mchev\LaravelOdk\Facades\OdkCentralFacade',
+            'OdkCentral' => 'Mchev\LaravelOdk\Facades\OdkCentral',
         ];
     }
 }

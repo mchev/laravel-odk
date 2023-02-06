@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-odk` will be documented in this file
 
+## 1.3.0 - 2023-02-06
+
+- BREAKING CHANGE : `$odk->projects($projectId)->forms($xmlFormId)->fields()` is replaced by `$odk->projects($projectId)->forms($xmlFormId)->fields()->get()`
+- Laravel 10 Support
+- OdkCentral Facade
+
 ## 1.2.3 - 2021-08-27
 
 - Let a version be empty on publish
