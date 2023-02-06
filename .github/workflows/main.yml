@@ -45,7 +45,7 @@ jobs:
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
             - name: Install dependencies
               run: |
-                composer require "illuminate/contracts=^${{ matrix.laravel }}" --dev --no-update
+                composer require "illuminate/support=^${{ matrix.laravel }}" --dev --no-update
                 composer update --prefer-dist --no-interaction --no-progress
             - name: Execute tests
               run: vendor/bin/phpunit --verbose
