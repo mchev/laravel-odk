@@ -5,6 +5,8 @@
 ![GitHub Actions](https://github.com/mchev/laravel-odk/actions/workflows/main.yml/badge.svg)
 ![Laravel compatibility](https://img.shields.io/badge/laravel-%5E8.0%7C%5E9.0%7C%5E10.0-brightgreen)
 
+**This is a community project and not an official Laravel one**
+
 Laravel-ODK is a simple wrapper around the ODK Central API that makes working with its endpoints a breeze! 
 To get more informations about the API see [https://odkcentral.docs.apiary.io/](https://odkcentral.docs.apiary.io/#)
 
