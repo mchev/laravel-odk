@@ -7,9 +7,15 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Clear cache before each test
+        $this->app['cache']->forget('ODKAccessToken');
+    }
+
     protected function getEnvironmentSetUp($app): void
     {
-        // Load the .env file
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
         parent::getEnvironmentSetUp($app);

@@ -20,17 +20,13 @@ class OdkCentralRequest
     {
         $this->api_url = config('odkcentral.api_url');
 
-        $auth = new OdkCentralAuth();
+        $auth = new OdkCentralAuth;
 
         $this->token = $auth->getAccessToken();
     }
 
     /**
      * GET METHOD
-     *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      */
     public function get(string $endpoint, array $params = [], array $headers = [])
     {
@@ -48,10 +44,6 @@ class OdkCentralRequest
 
     /**
      * GET RAW METHOD
-     *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      */
     public function getBody(string $endpoint, array $params = [], array $headers = [])
     {
@@ -69,9 +61,6 @@ class OdkCentralRequest
 
     /** POST METHOD
      *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      * @param  object  $file
      */
     public function post(string $endpoint, array $params = [], array $headers = [], $file = null)
@@ -102,9 +91,6 @@ class OdkCentralRequest
 
     /** PATCH METHOD
      *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      */
     public function patch(string $endpoint, array $params = [], array $headers = [])
     {
@@ -122,9 +108,6 @@ class OdkCentralRequest
 
     /** PUT METHOD
      *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      */
     public function put(string $endpoint, array $params = [], array $headers = [])
     {
@@ -142,9 +125,6 @@ class OdkCentralRequest
 
     /** DELETE METHOD
      *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      */
     public function delete(string $endpoint, array $params = [], array $headers = [])
     {
@@ -162,9 +142,6 @@ class OdkCentralRequest
 
     /** DOWNLOAD METHOD
      *
-     * @param  string  $endpoint
-     * @param  array  $params
-     * @param  array  $headers
      */
     public function download(string $endpoint, array $params = [], array $headers = [])
     {

@@ -282,7 +282,6 @@ class OdkCentral
     /**
      * Attachments endpoint.
      *
-     * @param  string  $filename
      * @return $this
      */
     public function downloadAttachment(string $filename)
@@ -319,7 +318,7 @@ class OdkCentral
     /**
      * Create method is passing params to the request and then post it.
      *
-     * @param $params
+     * @param  $params
      * @return collection
      */
     public function import($form, $ignoreWarnings = false, $publish = false)
@@ -336,7 +335,6 @@ class OdkCentral
     /**
      * Updating the current item based on endpoint.
      *
-     * @param  array  $params
      * @return collection
      */
     public function update(array $params)
@@ -349,7 +347,6 @@ class OdkCentral
     /**
      * Deep Updating.
      *
-     * @param  array  $params
      * @return collection
      */
     public function deepUpdate(array $params)
@@ -362,7 +359,6 @@ class OdkCentral
     /**
      * Updating the user password.
      *
-     * @param  array  $params
      * @return object $user
      */
     public function updatePassword(array $params)
@@ -407,7 +403,6 @@ class OdkCentral
     /**
      * Getting authentificated User details.
      *
-     * @param  string  $version
      * @return $this
      */
     public function publish(string $version = '')
@@ -620,8 +615,8 @@ class OdkCentral
                     $this->format($value);
                 } else {
 
-                    //$data->$key->question_name = $key;
-                    //$data->$key->value = $value;
+                    // $data->$key->question_name = $key;
+                    // $data->$key->value = $value;
                 }
             }
         }

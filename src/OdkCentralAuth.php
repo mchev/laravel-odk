@@ -74,7 +74,7 @@ class OdkCentralAuth
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.$this->getAccessToken(),
         ])->delete($this->api_url.$endpoint, [
-            'token' =>  $this->getAccessToken(),
+            'token' => $this->getAccessToken(),
         ]);
 
         return $response->json();
